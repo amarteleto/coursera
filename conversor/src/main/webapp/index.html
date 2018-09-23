@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="UTF-8">
+		<title>Conversor</title>
+	</head>
+<body>
+	<form action="conversor.slt" method="post">
+		<h1>Conversor</h1>
+		<table>
+			<tr>
+				<td>Opção:</td>
+				<td>
+					<select id="cbOpcao" name="cbOpcao">
+						<option value="1" selected="selected">Fahrenheit para Celsius</option>
+					  	<option value="2">Celsius para Fahrenheit</option>
+					</select>
+				</td>
+			</tr>
+			<tr>
+				<td>Valor:</td>
+				<td>
+					<input id="txValor" name="txValor" type="text" />
+				</td>
+			</tr>
+		</table>
+      	<input id="btCalcular" type="submit" value="Calcular" />
+    </form>
+</body>
+</html>
