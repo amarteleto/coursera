@@ -2,23 +2,23 @@
 	<modelVersion>4.0.0</modelVersion>
   	
   	<groupId>br.com.marteleto</groupId>
-  	<artifactId>framework</artifactId>
+  	<artifactId>coursera</artifactId>
   	<version>1.0</version>
   	<packaging>pom</packaging>
   	
-    <name>framework</name>
-  	<description>framework</description>
-	<url>https://github.com/amarteleto/framework</url>
+    <name>coursera</name>
+  	<description>coursera</description>
+	<url>https://github.com/amarteleto/coursera</url>
 	
 	<issueManagement>
-		<url>https://github.com/amarteleto/framework/issues</url>
+		<url>https://github.com/amarteleto/coursera/issues</url>
 		<system>GitHub Issues</system>
 	</issueManagement>
 	
 	<scm>
-		<url>https://github.com/amarteleto/framework</url>
-		<connection>scm:git:git://github.com/amarteleto/framework.git</connection>
-		<developerConnection>scm:git:git@github.com:amarteleto/framework.git</developerConnection>
+		<url>https://github.com/amarteleto/coursera</url>
+		<connection>scm:git:git://github.com/amarteleto/coursera.git</connection>
+		<developerConnection>scm:git:git@github.com:amarteleto/coursera.git</developerConnection>
 	</scm>
  	
   	<developers>
@@ -31,23 +31,14 @@
 	</developers>
   	
   	<modules>
-  		<module>framework_core</module>
-  		<module>framework_persistence</module>
-  		<module>framework_persistence_hibernate</module>
-  		<module>framework_web</module>
-  		<module>framework_web_primefaces</module>
-  		<module>framework_service</module>
-  		<module>framework_coverage</module>
+  		<module>conversor</module>
+  		<module>forum</module>
 	</modules>
 	
 	<properties>
       	<maven.compiler.source>1.8</maven.compiler.source>
         <maven.compiler.target>1.8</maven.compiler.target>
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
-        <sonar.jacoco.reportPaths>./../framework_coverage/target/jacoco.exec</sonar.jacoco.reportPaths>
-        <sonar.junit.reportPaths>./../target/surefire-reports</sonar.junit.reportPaths>
-        <sonar.surefire.reportsPath>./../target/surefire-reports</sonar.surefire.reportsPath>
-        <sonar.failsafe.reportsPath>./../target/failsafe-reports</sonar.failsafe.reportsPath>
     </properties>
     
     <build>
@@ -87,29 +78,12 @@
 			<version>8.0</version>
 			<scope>provided</scope>
 		</dependency>
-		<dependency>
-			<groupId>javax.enterprise</groupId>
-			<artifactId>cdi-api</artifactId>
-			<version>2.0</version>
-			<scope>provided</scope>
-		</dependency>
     </dependencies>
-    
-    <dependencyManagement>
-		<dependencies>
-        	<!-- SLF4J -->
-			<dependency>
-	        	<groupId>org.slf4j</groupId>
-	        	<artifactId>slf4j-log4j12</artifactId>
-	        	<version>1.7.25</version>
-	    	</dependency>
-	  	</dependencies>
-    </dependencyManagement>
     
     <distributionManagement>
   		<repository>
     		<id>bintray</id>
-    		<url>https://api.bintray.com/maven/amarteleto/maven-repo/framework/;publish=1</url>
+    		<url>https://api.bintray.com/maven/amarteleto/maven-repo/coursera/;publish=1</url>
   		</repository>
 	</distributionManagement>
 	
