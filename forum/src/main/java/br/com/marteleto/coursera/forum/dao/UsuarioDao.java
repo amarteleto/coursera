@@ -5,6 +5,8 @@ import java.sql.DriverManager;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.util.ArrayList;
+import java.util.List;
 
 import br.com.marteleto.coursera.forum.dao.interfaces.IUsuarioDao;
 import br.com.marteleto.coursera.forum.util.ConfigUtil;
@@ -84,6 +86,36 @@ public class UsuarioDao implements IUsuarioDao {
 				preparedStatement.execute();
 			} catch (SQLException ex) {
 				throw new RuntimeException(Constantes.MSG_FALHA_ADICIONAR_PONTO_USUARIO,ex);
+			}
+	}
+
+	@Override
+	public List<Usuario> recuperarRanking() {
+		try (
+				Connection connection = DriverManager.getConnection(ConfigUtil.getDatabaseUrl());
+			){
+				StringBuilder sql = new StringBuilder();
+				sql.append(" SELECT");
+				sql.append(" 	usua.login,");
+				sql.append(" 	usua.pontos,");
+				sql.append(" 	usua.nome");
+				sql.append(" FROM");
+				sql.append(" 	usuario usua");
+				sql.append(" ORDER BY");
+				sql.append(" 	usua.pontos DESC");
+				PreparedStatement preparedStatement = connection.prepareStatement(sql.toString());
+				ResultSet resultSet = preparedStatement.executeQuery();
+				List<Usuario> usuarios = new ArrayList<>();
+				while (resultSet.next()) {
+					Usuario usuario = new Usuario();
+					usuario.setLogin(resultSet.getString("login"));
+					usuario.setNome(resultSet.getString("nome"));
+					usuario.setPontos(resultSet.getInt("pontos"));
+					usuarios.add(usuario);
+				}
+				return usuarios;
+			} catch (SQLException ex) {
+				throw new RuntimeException(Constantes.MSG_FALHA_RECUPERAR_RANKING_USUARIO,ex);
 			}
 	}
 }

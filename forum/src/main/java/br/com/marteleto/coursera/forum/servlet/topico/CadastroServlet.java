@@ -15,7 +15,7 @@ import br.com.marteleto.coursera.forum.util.WebUtil;
 import br.com.marteleto.coursera.forum.vo.Topico;
 import br.com.marteleto.coursera.forum.vo.Usuario;
 
-@WebServlet(value="/usuario/cadastro.slt")
+@WebServlet(value="/topico/cadastro.slt")
 public class CadastroServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
 	private final ITopicoBusiness topicoBusiness = new TopicoBusiness();

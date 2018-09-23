@@ -3,6 +3,7 @@ package br.com.marteleto.coursera.forum.test.junit;
 import static org.junit.Assert.assertEquals;
 
 import java.io.Serializable;
+import java.util.List;
 
 import org.junit.Test;
 
@@ -40,5 +41,11 @@ public class UsuarioBusinessTest implements Serializable {
 		business.adicionarPontos("amarteleto", 10);
 		Usuario usuario = business.recuperar("amarteleto");
 		assertEquals(Integer.valueOf(10), usuario.getPontos());
+	}
+	
+	@Test
+	public void recuperarRanking() {
+		List<Usuario> usuarios = business.recuperarRanking();
+		assertEquals("amarteleto", usuarios.get(0).getLogin());
 	}
 }

@@ -20,6 +20,7 @@ public class Constantes implements Serializable {
 	public static String MSG_FALHA_SALVAR_COMENTARIO = "Falha ao salvar comentário.";
 	public static String MSG_FALHA_ADICIONAR_PONTO_USUARIO = "Falha ao adcionar ponto ao usuário.";
 	public static String MSG_FALHA_RECUPERAR_USUARIO = "Falha ao recuperar ao usuário.";
+	public static String MSG_FALHA_RECUPERAR_RANKING_USUARIO = "Falha ao recuperar ranking de usuários.";
 	public static String MSG_FALHA_RECUPERAR_TOPICO = "Falha ao recuperar ao tópicos.";
 	public static String MSG_FALHA_RECUPERAR_COMENTARIO = "Falha ao recuperar ao comentários.";
 	public static String MSG_FALHA_BUSCAR_TOPICO = "Falha ao buscar ao tópics.";

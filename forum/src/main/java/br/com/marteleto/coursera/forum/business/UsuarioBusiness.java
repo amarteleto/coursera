@@ -1,5 +1,7 @@
 package br.com.marteleto.coursera.forum.business;
 
+import java.util.List;
+
 import br.com.marteleto.coursera.forum.business.interfaces.IUsuarioBusiness;
 import br.com.marteleto.coursera.forum.dao.UsuarioDao;
 import br.com.marteleto.coursera.forum.dao.interfaces.IUsuarioDao;
@@ -32,6 +34,11 @@ public class UsuarioBusiness implements IUsuarioBusiness {
 	@Override
 	public void adicionarPontos(String login, Integer pontos) {
 		dao.adicionarPontos(login, pontos);
+	}
+
+	@Override
+	public List<Usuario> recuperarRanking() {
+		return dao.recuperarRanking();
 	}
 
 }
