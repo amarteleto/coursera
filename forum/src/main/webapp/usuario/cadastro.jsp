@@ -34,6 +34,7 @@
 			<tr>
 				<td colspan="2" align="center">
 					<input type="submit" id="btSalvar" value="salvar">
+					<input type="button" onclick="location.href='${pageContext.request.contextPath}/';" value="cancelar" />
 				</td>
 			</tr>
 		</table>
