@@ -1,15 +1,14 @@
 package br.com.marteleto.coursera.forum.util;
 
+import java.io.File;
 import java.io.IOException;
 import java.io.Serializable;
-import java.nio.file.Files;
-import java.nio.file.Paths;
 import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.PreparedStatement;
 import java.sql.SQLException;
 import java.util.Properties;
-import java.util.stream.Stream;
+import java.util.Scanner;
 
 public class ConfigUtil implements Serializable {
 	private static final long serialVersionUID = 1L;
@@ -47,10 +46,12 @@ public class ConfigUtil implements Serializable {
 	
 	private static void criarBancoDeDados() {
 		try (
-				Stream<String> stream = Files.lines(Paths.get(ConfigUtil.class.getClassLoader().getResource("database.sql").toURI()));
+				Scanner scanner = new Scanner(new File(ConfigUtil.class.getClassLoader().getResource("database.sql").getFile()))
 		) {
 			Class.forName(ConfigUtil.getDatabaseClass());
-			stream.forEach(ConfigUtil::criarTabela);
+			while (scanner.hasNext()){
+				criarTabela(scanner.nextLine());
+			}
 		} catch (Exception ex) {
 			throw new RuntimeException("Falha ao carregar banco de dados.",ex);
 		}

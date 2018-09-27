@@ -25,7 +25,7 @@
 			<tr>
 				<td colspan="2" align="center">
 					<input type="submit" id="btAutenticar" value="autenticar">
-					<input type="button" onclick="location.href='${pageContext.request.contextPath}/usuario/cadastro.jsp';" value="novo" />
+					<input type="button" id="btNovo" onclick="location.href='${pageContext.request.contextPath}/usuario/cadastro.jsp';" value="novo" />
 				</td>
 			</tr>
 		</table>

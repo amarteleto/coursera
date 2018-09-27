@@ -1,10 +1,11 @@
 package br.com.marteleto.coursera.forum.filter;
 import java.io.IOException;
+import java.util.ArrayList;
+import java.util.List;
 
 import javax.servlet.Filter;
 import javax.servlet.FilterChain;
 import javax.servlet.FilterConfig;
-import javax.servlet.ServletContext;
 import javax.servlet.ServletException;
 import javax.servlet.ServletRequest;
 import javax.servlet.ServletResponse;
@@ -18,35 +19,36 @@ import br.com.marteleto.coursera.forum.vo.Usuario;
 
 @WebFilter("/*")
 public class UsuarioLogadoFilter implements Filter {
-
-	private ServletContext context;
 	
 	@Override
 	public void init(FilterConfig filterConfig) throws ServletException {
-		this.context = filterConfig.getServletContext();
 	}
 	
+	@Override
 	public void doFilter(ServletRequest request, ServletResponse response, FilterChain chain) throws IOException, ServletException {
-		String loginPage = "login.jsp";
-		String loginSlt = "autenticar.slt";
+		List<String> excecoes = new ArrayList<>();
+		excecoes.add("/forum/usuario/login.jsp");
+		excecoes.add("/forum/usuario/cadastro.jsp");
+		excecoes.add("/forum/usuario/autenticar.slt");
+		excecoes.add("/forum/usuario/cadastro.slt");
+		excecoes.add("/forum/forum.css");
+		excecoes.add("/forum/");
 		HttpServletRequest req = (HttpServletRequest) request;
 		HttpServletResponse res = (HttpServletResponse) response;
+		WebUtil.limparMensagem(req);
 		String uri = req.getRequestURI();
 		HttpSession session = req.getSession(false);
 		boolean autenticar = false;
-		if(session == null){
-			if (!(uri.endsWith(loginPage) || uri.endsWith(loginSlt))) {
-				autenticar = true;
-			}
+		if(session == null && !excecoes.contains(uri)){
+			autenticar = true;
 		} else {
 			Usuario usuario = WebUtil.getUsuarioLogado(req);
-			if (usuario == null && !(uri.endsWith(loginPage) || uri.endsWith(loginSlt))) {
+			if (usuario == null && !excecoes.contains(uri)) {
 				autenticar = true;
 			}
 		}
-		this.context.getContextPath();
 		if(autenticar){
-			res.sendRedirect(loginPage);
+			WebUtil.redirecionarPaginaLogin(req, res);
 		} else {
 			chain.doFilter(request, response);
 		}

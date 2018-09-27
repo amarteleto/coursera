@@ -16,6 +16,8 @@ public class LoginPage implements Serializable {
     private WebElement txSenha;
 	@FindBy(how = How.ID, using = "btAutenticar")
     private WebElement btAutenticar;
+	@FindBy(how = How.ID, using = "btNovo")
+    private WebElement btNovo;
 	@FindBy(how = How.ID, using = "lbMensagem")
     private WebElement lbMensagem;
 		
@@ -29,5 +31,9 @@ public class LoginPage implements Serializable {
         txSenha.sendKeys(senha);
         btAutenticar.click();
 		return lbMensagem.getText();
+	}
+	
+	public void novoCadastro() {
+		btNovo.click();
 	}
 }

@@ -11,7 +11,7 @@
 <body>
 	<center><h1>forum</h1></center>
 	<span id="lbMensagem" class="${mensagem_class}">${mensagem}</span>
-	<table border="1">
+	<table id="tbResultado" border="1">
 		<tr>
 			<td colspan="3" align="center">ranking</td>
 		</tr>
@@ -24,23 +24,25 @@
 			List<Usuario> usuarios = (List<Usuario>) request.getAttribute("usuarios");
 			if (usuarios.isEmpty()) {
 		%>
-				<td colspan="3" align="center">Não existem usuarios a serem exibidos.</td>
+				<td id="tdSemDados" colspan="3" align="center">Não existem usuarios a serem exibidos.</td>
 		<%	
 			} else {
+				int cont = 0;
 				for (Usuario usuario : usuarios) {
 		%>
-					<tr>
+					<tr id="trResultado<% out.println(cont); %>" name="trResultados">
 						<td align='left'><% out.println(usuario.getPontos()); %></td>
 						<td align='center'><% out.println(usuario.getNome()); %></td>
 						<td align='center'><% out.println(usuario.getLogin()); %></td>
 					</tr>
 		<%
+					cont++;
 				}
 			}
 		%>
 		<tr>
 			<td colspan="3" align="center">
-				<input type="button" onclick="location.href='${pageContext.request.contextPath}/topico/listar.slt';" value="tópicos" />
+				<input type="button" id="btTopicos" onclick="location.href='${pageContext.request.contextPath}/topico/listar.slt';" value="tópicos" />
 			</td>
 		</tr>
 	</table>

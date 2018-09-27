@@ -11,7 +11,7 @@
 <body>
 	<center><h1>forum</h1></center>
 	<span id="lbMensagem" class="${mensagem_class}">${mensagem}</span>
-	<table border="1">
+	<table id="tbResultado" border="1">
 		<tr>
 			<td colspan="2" align="center">tópicos</td>
 		</tr>
@@ -23,23 +23,25 @@
 			List<Topico> topicos = (List<Topico>) request.getAttribute("topicos");
 			if (topicos.isEmpty()) {
 		%>
-				<td colspan="2" align="center">Não existem tópicos a serem exibidos.</td>
+				<td id="tdSemDados" colspan="2" align="center">Não existem tópicos a serem exibidos.</td>
 		<%	
 			} else {
+				int cont = 0;
 				for (Topico topico : topicos) {
 		%>
-					<tr>
+					<tr id="trResultado<% out.println(cont); %>" name="trResultados">
 						<td align='left'><% out.println(topico.getTitulo()); %></td>
 						<td align='center'><% out.println(topico.getCriador().getNome()); %></td>
 					</tr>
 		<%
+					cont++;
 				}
 			}
 		%>
 		<tr>
 			<td colspan="2" align="center">
-				<input type="button" onclick="location.href='${pageContext.request.contextPath}/topico/cadastro.jsp';" value="novo" />
-				<input type="button" onclick="location.href='${pageContext.request.contextPath}/usuario/ranking.slt';" value="ranking" />
+				<input type="button" id="btNovo" onclick="location.href='${pageContext.request.contextPath}/topico/cadastro.jsp';" value="novo" />
+				<input type="button" id="btRanking" onclick="location.href='${pageContext.request.contextPath}/usuario/ranking.slt';" value="ranking" />
 			</td>
 		</tr>
 	</table>

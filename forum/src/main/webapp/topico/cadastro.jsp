@@ -26,7 +26,7 @@
 			<tr>
 				<td colspan="2" align="center">
 					<input type="submit" id="btSalvar" value="salvar">
-					<input type="button" onclick="location.href='${pageContext.request.contextPath}/topico/listar.slt';" value="cancelar" />
+					<input type="button" id="btCancelar" onclick="location.href='${pageContext.request.contextPath}/topico/listar.slt';" value="cancelar" />
 				</td>
 			</tr>
 		</table>
