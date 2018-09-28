@@ -21,8 +21,8 @@ public class ConsultarServlet extends HttpServlet {
 	@Override
 	protected void service(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
 		try {
-			Integer id = Integer.valueOf(req.getParameter("id"));
-			Topico topico = topicoBusiness.buscarTopico(id);
+			Integer idTopico = Integer.valueOf(req.getParameter("txTopico").trim());
+			Topico topico = topicoBusiness.buscarTopico(idTopico);
 			req.setAttribute("topico", topico);
 			WebUtil.redirecionarPaginaConsultarTopico(req, resp);
 		} catch (Exception ex) {

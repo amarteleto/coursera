@@ -11,6 +11,16 @@
 <body>
 	<center><h1>forum</h1></center>
 	<span id="lbMensagem" class="${mensagem_class}">${mensagem}</span>
+	<form name="form" action="${pageContext.request.contextPath}/topico/consultar.slt" method="post">
+		<input type="hidden" id="txTopico" name="txTopico"/>
+	</form>
+	<script type="text/javascript">
+		function consultar(id) {
+			var txTopico = document.getElementById('txTopico');
+			txTopico.value = id;
+			document.form.submit();
+		}
+	</script>
 	<table id="tbResultado" border="1">
 		<tr>
 			<td colspan="2" align="center">tópicos</td>
@@ -26,15 +36,13 @@
 				<td id="tdSemDados" colspan="2" align="center">Não existem tópicos a serem exibidos.</td>
 		<%	
 			} else {
-				int cont = 0;
 				for (Topico topico : topicos) {
 		%>
-					<tr id="trResultado<% out.println(cont); %>" name="trResultados">
-						<td align='left'><a id="lkTopico<% out.println(topico.getId()); %>" name="lkTopicos" href="javascript:location.href='${pageContext.request.contextPath}/topico/consultar.slt?id=<% out.println(topico.getId()); %>';"><% out.println(topico.getTitulo()); %></a></td>
+					<tr id="trResultado<% out.println(topico.getId()); %>" name="trResultados">
+						<td align='left'><a id="lkTopico<% out.println(topico.getId()); %>" name="lkTopicos" href="javascript:consultar(<% out.println(topico.getId()); %>);"><% out.println(topico.getTitulo()); %></a></td>
 						<td align='center'><% out.println(topico.getCriador().getNome()); %></td>
 					</tr>
 		<%
-					cont++;
 				}
 			}
 		%>

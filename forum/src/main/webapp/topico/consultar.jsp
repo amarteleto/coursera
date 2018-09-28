@@ -46,15 +46,13 @@
 					<td id="tdSemDados" colspan="2" align="center">Não existem comentários a serem exibidos.</td>
 			<%	
 				} else {
-					int cont = 0;
 					for (Comentario comentario : comentarios) {
 			%>
-						<tr id="trResultado<% out.println(cont); %>" name="trResultados">
+						<tr id="trResultado<% out.println(comentario.getId()); %>" name="trResultados">
 							<td align='left'><% out.println(comentario.getComentario()); %></td>
 							<td align='center'><% out.println(comentario.getCriador().getNome()); %></td>
 						</tr>
 			<%
-						cont++;
 					}
 				}
 			%>

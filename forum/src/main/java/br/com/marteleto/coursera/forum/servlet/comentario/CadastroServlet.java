@@ -37,10 +37,10 @@ public class CadastroServlet extends HttpServlet {
 			comentario.setTopico(topico);
 			comentarioBusiness.salvar(comentario);
 			WebUtil.publicarMensagemSucesso(req, Constantes.MSG_SUCESSO_SALVAR_COMENTARIO);
-			WebUtil.redirecionarServletConsultarTopico(req, resp, idTopico);
+			WebUtil.redirecionarServletConsultarTopico(req, resp);
 		} catch (Exception ex) {
 			WebUtil.publicarMensagemFalha(req, ex.getMessage());
-			WebUtil.redirecionarServletConsultarTopico(req, resp, idTopico);
+			WebUtil.redirecionarServletConsultarTopico(req, resp);
 		}
 	}
 }

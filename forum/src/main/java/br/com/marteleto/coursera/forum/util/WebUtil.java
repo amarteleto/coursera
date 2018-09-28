@@ -73,7 +73,7 @@ public class WebUtil implements Serializable {
 	public static void redirecionarServletRankingUsuario(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
 		WebUtil.redirecionar(req, resp, WebUtil.URL_SLT_RANKING_USUARIO);
 	}
-	public static void redirecionarServletConsultarTopico(HttpServletRequest req, HttpServletResponse resp, Integer topico) throws ServletException, IOException {
-		WebUtil.redirecionar(req, resp, WebUtil.URL_SLT_CONSULTAR_TOPICO + "?id=" + topico);
+	public static void redirecionarServletConsultarTopico(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
+		WebUtil.redirecionar(req, resp, WebUtil.URL_SLT_CONSULTAR_TOPICO);
 	}
 }
