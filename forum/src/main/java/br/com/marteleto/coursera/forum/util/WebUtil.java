@@ -16,7 +16,9 @@ public class WebUtil implements Serializable {
 	public static String URL_JSP_USUARIO_RANKING = "/usuario/ranking.jsp";
 	public static String URL_JSP_TOPICO_CADASTRO = "/topico/cadastro.jsp";
 	public static String URL_JSP_LISTAR_TOPICO = "/topico/listar.jsp";
+	public static String URL_JSP_CONSULTAR_TOPICO = "/topico/consultar.jsp";
 
+	public static String URL_SLT_CONSULTAR_TOPICO = "/topico/consultar.slt";
 	public static String URL_SLT_LISTAR_TOPICO = "/topico/listar.slt";
 	public static String URL_SLT_RANKING_USUARIO = "/usuario/ranking.slt";
 	
@@ -61,11 +63,17 @@ public class WebUtil implements Serializable {
 	public static void redirecionarPaginaListarTopico(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
 		WebUtil.redirecionar(req, resp, WebUtil.URL_JSP_LISTAR_TOPICO);
 	}
+	public static void redirecionarPaginaConsultarTopico(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
+		WebUtil.redirecionar(req, resp, WebUtil.URL_JSP_CONSULTAR_TOPICO);
+	}
 	//SERVLET
 	public static void redirecionarServletListarTopico(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
 		WebUtil.redirecionar(req, resp, WebUtil.URL_SLT_LISTAR_TOPICO);
 	}
 	public static void redirecionarServletRankingUsuario(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
 		WebUtil.redirecionar(req, resp, WebUtil.URL_SLT_RANKING_USUARIO);
+	}
+	public static void redirecionarServletConsultarTopico(HttpServletRequest req, HttpServletResponse resp, Integer topico) throws ServletException, IOException {
+		WebUtil.redirecionar(req, resp, WebUtil.URL_SLT_CONSULTAR_TOPICO + "?id=" + topico);
 	}
 }

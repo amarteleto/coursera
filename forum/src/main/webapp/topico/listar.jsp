@@ -30,7 +30,7 @@
 				for (Topico topico : topicos) {
 		%>
 					<tr id="trResultado<% out.println(cont); %>" name="trResultados">
-						<td align='left'><% out.println(topico.getTitulo()); %></td>
+						<td align='left'><a id="lkTopico<% out.println(topico.getId()); %>" name="lkTopicos" href="javascript:location.href='${pageContext.request.contextPath}/topico/consultar.slt?id=<% out.println(topico.getId()); %>';"><% out.println(topico.getTitulo()); %></a></td>
 						<td align='center'><% out.println(topico.getCriador().getNome()); %></td>
 					</tr>
 		<%

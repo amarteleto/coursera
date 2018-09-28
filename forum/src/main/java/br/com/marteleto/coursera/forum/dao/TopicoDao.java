@@ -61,6 +61,7 @@ public class TopicoDao implements ITopicoDao {
 			sql.append(" SELECT");
 			sql.append(" 	topi.id_topico,");
 			sql.append(" 	topi.titulo,");
+			sql.append(" 	topi.conteudo,");
 			sql.append(" 	usua.login,");
 			sql.append(" 	usua.nome");
 			sql.append(" FROM");
@@ -78,6 +79,7 @@ public class TopicoDao implements ITopicoDao {
 				Topico topico = new Topico();
 				topico.setId(resultSet.getInt("id_topico"));
 				topico.setTitulo(resultSet.getString("titulo"));
+				topico.setConteudo(resultSet.getString("conteudo"));
 				topico.setCriador(criador);
 				return topico;
 			}

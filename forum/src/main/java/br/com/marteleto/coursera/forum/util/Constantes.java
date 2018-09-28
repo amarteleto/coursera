@@ -13,6 +13,7 @@ public class Constantes implements Serializable {
 	public static String MSG_SUCESSO_AUTENTICACAO = "Seja bem vindo, usuário!";
 	public static String MSG_SUCESSO_SALVAR_USUARIO = "Usuário cadastrado com sucesso!";
 	public static String MSG_SUCESSO_SALVAR_TOPICO = "Tópico cadastrado com sucesso!";
+	public static String MSG_SUCESSO_SALVAR_COMENTARIO = "Comentário cadastrado com sucesso!";
 	
 	public static String MSG_FALHA_AUTENTICACAO = "Usuário não encontrado.";
 	public static String MSG_FALHA_SALVAR_USUARIO = "Falha ao salvar usuário.";
