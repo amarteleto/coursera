@@ -108,4 +108,10 @@ public class WebTest {
 		assertTrue(existe);
 	}
 	
+	@Test
+	public void test8AcessarTopico() {
+		ListarTopicoPage page = PageFactory.initElements(driver, ListarTopicoPage.class);
+		page.acessarPrimeiroTopico();
+	}
+	
 }

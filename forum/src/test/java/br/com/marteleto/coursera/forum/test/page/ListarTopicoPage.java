@@ -1,6 +1,7 @@
 package br.com.marteleto.coursera.forum.test.page;
 
 import java.io.Serializable;
+import java.util.List;
 
 import org.openqa.selenium.By;
 import org.openqa.selenium.NoSuchElementException;
@@ -20,7 +21,9 @@ public class ListarTopicoPage implements Serializable {
     private WebElement lbMensagem;
 	@FindBy(how = How.ID, using = "tdSemDados")
     private WebElement tdSemDados;
-		
+	@FindBy(how = How.NAME, using = "lkTopicos")
+    private List<WebElement> links;
+
 	public ListarTopicoPage(WebDriver driver) {
 		this.driver = driver;
 		this.driver.get("http://localhost:8080/forum/topico/listar.slt");
@@ -45,5 +48,11 @@ public class ListarTopicoPage implements Serializable {
 	public boolean existeTopico(String titulo) {
 		String result = driver.findElement(By.xpath(".//*[@id='tbResultado']//td[contains(.,'" + titulo + "')]")).getText();
 		return (result != null && !"".equals(result.trim()));
+	}
+	
+	public void acessarPrimeiroTopico() {
+		if (links != null && !links.isEmpty()) {
+			links.get(0).click();
+		}
 	}
 }
