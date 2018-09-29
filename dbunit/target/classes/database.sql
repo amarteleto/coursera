@@ -1,1 +1,0 @@
-CREATE TABLE usuario (login varchar(10) primary key, email varchar(30), nome varchar(50), senha varchar(10), pontos int)
