@@ -34,10 +34,13 @@ public class ComentarioDao implements IComentarioDao {
 			sql.append(" FROM");
 			sql.append(" 	comentario come");
 			sql.append(" 	INNER JOIN topico topi ON topi.id_topico = come.id_topico");
-			sql.append(" 	INNER JOIN usuario usua ON usua.login = topi.login");
+			sql.append(" 	INNER JOIN usuario usua ON usua.login = come.login");
+			sql.append(" WHERE 1 = 1");
+			sql.append(" 	AND topi.id_topico = ?");
 			sql.append(" ORDER BY");
 			sql.append(" 	come.id_comentario");
 			PreparedStatement preparedStatement = connection.prepareStatement(sql.toString());
+			preparedStatement.setInt(1, topico);
 			ResultSet resultSet = preparedStatement.executeQuery();
 			List<Comentario> comentarios = new ArrayList<>();
 			while (resultSet.next()) {
