@@ -9,7 +9,7 @@ import org.junit.Before;
 import org.junit.BeforeClass;
 import org.junit.Test;
 import org.openqa.selenium.WebDriver;
-import org.openqa.selenium.firefox.FirefoxDriver;
+import org.openqa.selenium.chrome.ChromeDriver;
 import org.openqa.selenium.support.PageFactory;
 
 import br.com.marteleto.coursera.test.page.IndexPage;
@@ -20,9 +20,9 @@ public class ConversorServletTest {
 
 	@BeforeClass
 	public static void beforeClass() {
-		URL url = ConversorServletTest.class.getResource("/webdriver/firefox/0.16.0/geckodriver.exe");
-        System.setProperty("webdriver.gecko.driver", url.getFile());
-        driver = new FirefoxDriver();
+		URL url = ConversorServletTest.class.getResource("/webdriver/chrome/2.41/chromedriver.exe");
+        System.setProperty("webdriver.chrome.driver", url.getFile());
+        driver = new ChromeDriver();
 	}
 	
 	@AfterClass
