@@ -19,11 +19,20 @@ public class ConversorServlet extends HttpServlet {
 	protected void service(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
 		Integer opcao = Integer.valueOf(req.getParameter("cbOpcao"));
 		Double valor = Double.valueOf(req.getParameter("txValor"));
-		PrintWriter out = resp.getWriter(); 
+		Double resultado = 0.0;
 		if (opcao.equals(Integer.valueOf(1))) {
-			out.println("A resposta é: [" + ConversorUtil.converterFahrenheitParaCelsius(valor)  + "]");
+			resultado = ConversorUtil.converterFahrenheitParaCelsius(valor);
 		} else {
-			out.println("A resposta é: [" + ConversorUtil.converterCelsiusParaFahrenheit(valor) + "]");
+			resultado = ConversorUtil.converterCelsiusParaFahrenheit(valor);
 		}
+		PrintWriter out = resp.getWriter();
+		out.println("<html>");
+		out.println("<head>");
+		out.println("<title>resultado</title>");
+		out.println("</head>");
+		out.println("<body>");
+		out.println("<div>A resposta é: <b><span id='resultado'>" + resultado + "</span></b></div>");
+		out.println("</body>");
+		out.println("</html>");
 	}
 }

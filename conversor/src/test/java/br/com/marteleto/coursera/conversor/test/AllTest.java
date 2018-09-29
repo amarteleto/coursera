@@ -10,11 +10,12 @@ import org.junit.runner.notification.Failure;
 import org.junit.runners.Suite;
 
 import br.com.marteleto.coursera.conversor.test.junit.ConversorUtilTest;
+import br.com.marteleto.coursera.conversor.test.selenium.ConversorServletTest;
 
 @RunWith(Suite.class)
 @Suite.SuiteClasses({
-	ConversorUtilTest.class
-	//ConversorServletTest.class,
+	ConversorUtilTest.class,
+	ConversorServletTest.class,
 })
 public class AllTest implements Serializable {
 	private static final long serialVersionUID = 1L;

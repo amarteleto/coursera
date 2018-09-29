@@ -17,10 +17,11 @@ public class IndexPage implements Serializable {
     private WebElement txValor;
 	@FindBy(how = How.ID, using = "btCalcular")
     private WebElement btCalcular;
+	@FindBy(how = How.ID, using = "resultado")
+    private WebElement resultado;
 		
 	public IndexPage(WebDriver driver) {
 		this.driver = driver;
-		
 	}
 	
 	public Double converterCelsiusParaFahrenheit(Double celsius) {
@@ -28,9 +29,7 @@ public class IndexPage implements Serializable {
 		cbOpcao.selectByIndex(1);
         txValor.sendKeys(celsius.toString());
         btCalcular.click();
-        int pos1 = driver.getPageSource().indexOf("[");
-        int pos2 = driver.getPageSource().indexOf("]");
-		return Double.valueOf(driver.getPageSource().substring(pos1+1, pos2));
+		return Double.valueOf(resultado.getText().trim());
 	}
 	
 	public Double converterFahrenheitParaCelsius(Double fahrenheit) {
@@ -38,8 +37,6 @@ public class IndexPage implements Serializable {
 		cbOpcao.selectByIndex(0);
         txValor.sendKeys(fahrenheit.toString());
         btCalcular.click();
-        int pos1 = driver.getPageSource().indexOf("[");
-        int pos2 = driver.getPageSource().indexOf("]");
-		return Double.valueOf(driver.getPageSource().substring(pos1+1, pos2));
+		return Double.valueOf(resultado.getText().trim());
 	}
 }

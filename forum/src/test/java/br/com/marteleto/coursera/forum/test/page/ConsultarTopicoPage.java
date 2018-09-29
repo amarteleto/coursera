@@ -1,16 +1,11 @@
 package br.com.marteleto.coursera.forum.test.page;
 
 import java.io.Serializable;
-import java.util.List;
 
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;
 import org.openqa.selenium.support.How;
-
-import br.com.marteleto.coursera.forum.business.TopicoBusiness;
-import br.com.marteleto.coursera.forum.business.interfaces.ITopicoBusiness;
-import br.com.marteleto.coursera.forum.vo.Topico;
 
 public class ConsultarTopicoPage implements Serializable {
 	private static final long serialVersionUID = 1L;
