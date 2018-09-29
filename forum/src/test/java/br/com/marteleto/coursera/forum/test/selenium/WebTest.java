@@ -104,7 +104,7 @@ public class WebTest {
 	}
 	
 	@Test
-	public void test6CriarComentário() {
+	public void test6CriarComentario() {
 		ListarTopicoPage listarTopicoPage = PageFactory.initElements(driver, ListarTopicoPage.class);
 		Integer topico = listarTopicoPage.buscarIdPrimeiroTopico();
 		ConsultarTopicoPage consultarTopicoPage = PageFactory.initElements(driver, ConsultarTopicoPage.class);
