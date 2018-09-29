@@ -26,7 +26,7 @@ public class ConsultarServlet extends HttpServlet {
 			req.setAttribute("topico", topico);
 			WebUtil.redirecionarPaginaConsultarTopico(req, resp);
 		} catch (Exception ex) {
-			WebUtil.publicarMensagemFalha(req, ex.getMessage());
+			WebUtil.publicarMensagemFalha(req, ex);
 			WebUtil.redirecionarPaginaConsultarTopico(req, resp);
 		}
 	}

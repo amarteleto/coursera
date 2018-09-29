@@ -1,6 +1,7 @@
 package br.com.marteleto.coursera.forum.test.junit;
 
 import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertNotNull;
 
 import java.io.Serializable;
 import java.util.List;
@@ -23,14 +24,14 @@ public class TopicoBusinessTest implements Serializable {
 	@Test
 	public void recuperarTodos() {
 		List<Topico> topicos = topicoBusiness.recuperarTodos();
-		assertEquals(Integer.valueOf(1), topicos.get(0).getId());
+		assertNotNull(topicos);
 	}
 	
 	@Test
 	public void salvar() {
 		List<Topico> topicos = topicoBusiness.recuperarTodos();
 		Integer novaQtd = topicos.size() + 1; 
-		Usuario criador = usuarioBusiness.recuperar("amarteleto");
+		Usuario criador = usuarioBusiness.recuperar("junit");
 		Integer pontos = criador.getPontos() + Constantes.PONTOS_TOPICO;
 		Topico topico = new Topico();
 		topico.setTitulo("JUnit Test Dinamico");
@@ -39,7 +40,7 @@ public class TopicoBusinessTest implements Serializable {
 		topicoBusiness.salvar(topico);
 		List<Topico> topicosAtualizado = topicoBusiness.recuperarTodos();
 		assertEquals(novaQtd, Integer.valueOf(topicosAtualizado.size()));
-		Usuario criadorAtualizado = usuarioBusiness.recuperar("amarteleto");
+		Usuario criadorAtualizado = usuarioBusiness.recuperar("junit");
 		assertEquals(pontos, criadorAtualizado.getPontos());
 	}
 }

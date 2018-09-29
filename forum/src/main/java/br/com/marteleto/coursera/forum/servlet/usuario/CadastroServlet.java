@@ -35,7 +35,7 @@ public class CadastroServlet extends HttpServlet {
 			WebUtil.publicarMensagemSucesso(req, Constantes.MSG_SUCESSO_SALVAR_USUARIO);
 			WebUtil.redirecionarPaginaLogin(req, resp);
 		} catch (Exception ex) {
-			WebUtil.publicarMensagemFalha(req, ex.getMessage());
+			WebUtil.publicarMensagemFalha(req, ex);
 			WebUtil.redirecionarPaginaUsuarioCadastro(req, resp);
 		}
 	}

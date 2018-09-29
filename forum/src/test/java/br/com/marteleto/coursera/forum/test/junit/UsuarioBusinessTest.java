@@ -1,8 +1,10 @@
 package br.com.marteleto.coursera.forum.test.junit;
 
 import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertNotNull;
 
 import java.io.Serializable;
+import java.util.Calendar;
 import java.util.List;
 
 import org.junit.Test;
@@ -18,7 +20,7 @@ public class UsuarioBusinessTest implements Serializable {
 	@Test
 	public void salvarUsuario() {
 		Usuario usuario = new Usuario();
-		usuario.setLogin("junittest");
+		usuario.setLogin(String.valueOf(Calendar.getInstance().getTimeInMillis()));
 		usuario.setEmail("junittest@junittest.com.br");
 		usuario.setSenha("123456");
 		business.salvar(usuario);
@@ -26,26 +28,29 @@ public class UsuarioBusinessTest implements Serializable {
 	
 	@Test
 	public void recuperarUsuario() {
-		Usuario usuario = business.recuperar("amarteleto");
-		assertEquals("amarteleto@outlook.com", usuario.getEmail());
+		Usuario usuario = business.recuperar("junit");
+		assertEquals("junit@junit.com", usuario.getEmail());
 	}
 	
 	@Test
 	public void autenticarUsuario() {
-		Usuario usuario = business.autenticar("amarteleto","123456");
-		assertEquals("amarteleto@outlook.com", usuario.getEmail());
+		Usuario usuario = business.autenticar("junit","123456");
+		assertEquals("junit@junit.com", usuario.getEmail());
 	}
 	
 	@Test
 	public void adicionarPontos() {
-		business.adicionarPontos("amarteleto", 10);
-		Usuario usuario = business.recuperar("amarteleto");
-		assertEquals(Integer.valueOf(10), usuario.getPontos());
+		Usuario usuario = business.recuperar("junit");
+		Integer pontos = usuario.getPontos();
+		Integer pontosNovo = pontos + 10;
+		business.adicionarPontos("junit", 10);
+		usuario = business.recuperar("junit");
+		assertEquals(pontosNovo, usuario.getPontos());
 	}
 	
 	@Test
 	public void recuperarRanking() {
 		List<Usuario> usuarios = business.recuperarRanking();
-		assertEquals("amarteleto", usuarios.get(0).getLogin());
+		assertNotNull(usuarios);
 	}
 }

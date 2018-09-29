@@ -39,7 +39,7 @@
 				for (Topico topico : topicos) {
 		%>
 					<tr id="trResultado<% out.println(topico.getId()); %>" name="trResultados">
-						<td align='left'><a id="lkTopico<% out.println(topico.getId()); %>" name="lkTopicos" href="javascript:consultar(<% out.println(topico.getId()); %>);"><% out.println(topico.getTitulo()); %></a></td>
+						<td align='left'><a id="lkTopico<% out.println(topico.getId()); %>" idtopico="<% out.println(topico.getId()); %>" name="lkTopicos" href="javascript:consultar(<% out.println(topico.getId()); %>);"><% out.println(topico.getTitulo()); %></a></td>
 						<td align='center'><% out.println(topico.getCriador().getNome()); %></td>
 					</tr>
 		<%

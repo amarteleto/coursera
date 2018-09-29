@@ -55,4 +55,11 @@ public class ListarTopicoPage implements Serializable {
 			links.get(0).click();
 		}
 	}
+	
+	public Integer buscarIdPrimeiroTopico() {
+		if (links != null && !links.isEmpty()) {
+			return Integer.valueOf(links.get(0).getAttribute("idtopico").trim());
+		}
+		return null;
+	}
 }

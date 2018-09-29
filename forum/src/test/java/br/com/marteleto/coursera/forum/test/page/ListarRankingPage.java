@@ -1,6 +1,7 @@
 package br.com.marteleto.coursera.forum.test.page;
 
 import java.io.Serializable;
+import java.util.List;
 
 import org.openqa.selenium.By;
 import org.openqa.selenium.NoSuchElementException;
@@ -18,6 +19,8 @@ public class ListarRankingPage implements Serializable {
     private WebElement lbMensagem;
 	@FindBy(how = How.ID, using = "tdSemDados")
     private WebElement tdSemDados;
+	@FindBy(how = How.NAME, using = "trResultados")
+    private List<WebElement> trResultados;
 		
 	public ListarRankingPage(WebDriver driver) {
 		this.driver = driver;
@@ -36,8 +39,24 @@ public class ListarRankingPage implements Serializable {
 	    }
 	}
 	
-	public boolean existeUsuario(String nome) {
-		String result = driver.findElement(By.xpath(".//*[@id='tbResultado']//td[contains(.,'" + nome + "')]")).getText();
-		return (result != null && !"".equals(result.trim()));
+	public boolean existeRanking() {
+		if (trResultados != null && !trResultados.isEmpty()) {
+			return true;
+		}
+		return false;
+	}
+	
+	public Integer buscarPontosPorLogin(String login) {
+		if (trResultados != null && !trResultados.isEmpty()) {
+			for (WebElement trResultado: trResultados) {
+				List<WebElement> tds = trResultado.findElements(By.tagName("td"));
+				if (tds != null && !tds.isEmpty()) {
+					if (tds.get(2).getText().equals(login)) {
+						return Integer.valueOf(tds.get(0).getText().trim());
+					}
+				}
+			}
+		}
+		return null;
 	}
 }

@@ -9,11 +9,12 @@ import org.junit.runner.RunWith;
 import org.junit.runner.notification.Failure;
 import org.junit.runners.Suite;
 
+import br.com.marteleto.coursera.forum.test.junit.AllBusinessTest;
 import br.com.marteleto.coursera.forum.test.selenium.WebTest;
 
 @RunWith(Suite.class)
 @Suite.SuiteClasses({
-	//AllBusinessTest.class,
+	AllBusinessTest.class,
 	WebTest.class,
 })
 public class AllTest implements Serializable {

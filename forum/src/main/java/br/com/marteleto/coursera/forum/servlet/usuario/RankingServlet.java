@@ -26,7 +26,7 @@ public class RankingServlet extends HttpServlet {
 			req.setAttribute("usuarios", usuarios);
 			WebUtil.redirecionarPaginaUsuarioRanking(req, resp);
 		} catch (Exception ex) {
-			WebUtil.publicarMensagemFalha(req, ex.getMessage());
+			WebUtil.publicarMensagemFalha(req, ex);
 			WebUtil.redirecionarPaginaUsuarioRanking(req, resp);
 		}
 	}

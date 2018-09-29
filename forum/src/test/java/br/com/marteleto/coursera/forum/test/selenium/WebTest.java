@@ -5,6 +5,7 @@ import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertTrue;
 
 import java.net.URL;
+import java.util.Calendar;
 
 import org.junit.AfterClass;
 import org.junit.Before;
@@ -18,6 +19,7 @@ import org.openqa.selenium.support.PageFactory;
 
 import br.com.marteleto.coursera.forum.test.page.CadastroTopicoPage;
 import br.com.marteleto.coursera.forum.test.page.CadastroUsuarioPage;
+import br.com.marteleto.coursera.forum.test.page.ConsultarTopicoPage;
 import br.com.marteleto.coursera.forum.test.page.ListarRankingPage;
 import br.com.marteleto.coursera.forum.test.page.ListarTopicoPage;
 import br.com.marteleto.coursera.forum.test.page.LoginPage;
@@ -28,6 +30,7 @@ import br.com.marteleto.coursera.forum.vo.Usuario;
 @FixMethodOrder(MethodSorters.NAME_ASCENDING)
 public class WebTest {
 	private static WebDriver driver;
+	private static Integer pontos = 0;
 
 	@BeforeClass
 	public static void beforeClass() {
@@ -50,17 +53,17 @@ public class WebTest {
 	@Test
 	public void test1AutenticarFalha() {
 		LoginPage page = PageFactory.initElements(driver, LoginPage.class);
-		String falha = page.autenticar("amarteleto", "123456");
+		String falha = page.autenticar("xxx", "xxx");
 		assertEquals(Constantes.MSG_FALHA_AUTENTICACAO, falha);
 	}
 	
 	@Test
 	public void test2CadastrarUsuario() {
 		Usuario usuario = new Usuario();
-		usuario.setLogin("amarteleto");
+		usuario.setLogin(String.valueOf(Calendar.getInstance().getTimeInMillis()));
 		usuario.setSenha("123456");
-		usuario.setEmail("amarteleto@outlook.com");
-		usuario.setNome("Anderson Assis Marteleto");
+		usuario.setEmail("selenium@selenium.com");
+		usuario.setNome("Usuario selenium");
 		CadastroUsuarioPage page = PageFactory.initElements(driver, CadastroUsuarioPage.class);
 		String sucesso = page.cadastrar(usuario);
 		assertEquals(Constantes.MSG_SUCESSO_SALVAR_USUARIO, sucesso);
@@ -74,44 +77,52 @@ public class WebTest {
 	}
 	
 	@Test
-	public void test4NaoExisteTopico() {
-		ListarTopicoPage page = PageFactory.initElements(driver, ListarTopicoPage.class);
-		boolean existe = page.semTopicos();
-		assertTrue(existe);
+	public void test4VerificarRanking() {
+		ListarRankingPage page = PageFactory.initElements(driver, ListarRankingPage.class);
+		WebTest.pontos = page.buscarPontosPorLogin("amarteleto");
 	}
 	
 	@Test
-	public void test5CadastrarTopico() {
+	public void test4CadastrarTopico() {
 		Topico topico = new Topico();
 		topico.setTitulo("teste topico");
 		topico.setConteudo("teste topico");
 		CadastroTopicoPage page = PageFactory.initElements(driver, CadastroTopicoPage.class);
 		String sucesso = page.cadastrar(topico);
 		assertEquals(Constantes.MSG_SUCESSO_SALVAR_TOPICO, sucesso);
+		WebTest.pontos += Constantes.PONTOS_TOPICO;
 	}
 	
 	@Test
-	public void test6ExisteTopico() {
+	public void test5ExisteTopico() {
 		ListarTopicoPage page = PageFactory.initElements(driver, ListarTopicoPage.class);
 		boolean existe = page.semTopicos();
 		assertFalse(existe);
 		existe = page.existeTopico("teste topico");
 		assertTrue(existe);
-	}
-	
-	@Test
-	public void test7ExisteRanking() {
-		ListarRankingPage page = PageFactory.initElements(driver, ListarRankingPage.class);
-		boolean existe = page.semRanking();
-		assertFalse(existe);
-		existe = page.existeUsuario("Anderson Assis Marteleto");
-		assertTrue(existe);
-	}
-	
-	@Test
-	public void test8AcessarTopico() {
-		ListarTopicoPage page = PageFactory.initElements(driver, ListarTopicoPage.class);
 		page.acessarPrimeiroTopico();
 	}
 	
+	@Test
+	public void test6CriarComentário() {
+		ListarTopicoPage listarTopicoPage = PageFactory.initElements(driver, ListarTopicoPage.class);
+		Integer topico = listarTopicoPage.buscarIdPrimeiroTopico();
+		ConsultarTopicoPage consultarTopicoPage = PageFactory.initElements(driver, ConsultarTopicoPage.class);
+		consultarTopicoPage.acessarTopico(topico);
+		Integer qtd = consultarTopicoPage.buscarQtdComentarios();
+		Integer qtdNova = qtd + 1;
+		consultarTopicoPage.adicionarComentario("teste");
+		qtd = consultarTopicoPage.buscarQtdComentarios();
+		assertEquals(qtdNova, qtd);
+		WebTest.pontos += Constantes.PONTOS_COMENTARIO;
+	}
+	
+	@Test
+	public void test8VerificarRanking() {
+		ListarRankingPage page = PageFactory.initElements(driver, ListarRankingPage.class);
+		boolean existe = page.existeRanking();
+		assertTrue(existe);
+		Integer pontos = page.buscarPontosPorLogin("amarteleto");
+		assertEquals(WebTest.pontos, pontos);
+	}
 }

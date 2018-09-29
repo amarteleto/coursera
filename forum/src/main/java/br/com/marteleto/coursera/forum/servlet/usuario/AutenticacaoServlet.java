@@ -29,7 +29,7 @@ public class AutenticacaoServlet extends HttpServlet {
 			WebUtil.publicarMensagemSucesso(req, Constantes.MSG_SUCESSO_AUTENTICACAO);
 			WebUtil.redirecionarServletListarTopico(req,resp);
 		} catch (Exception ex) {
-			WebUtil.publicarMensagemFalha(req, ex.getMessage());
+			WebUtil.publicarMensagemFalha(req, ex);
 			WebUtil.redirecionarPaginaLogin(req, resp);
 		}
 	}

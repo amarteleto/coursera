@@ -2,6 +2,8 @@ package br.com.marteleto.coursera.forum.util;
 
 import java.io.IOException;
 import java.io.Serializable;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServletRequest;
@@ -11,6 +13,7 @@ import br.com.marteleto.coursera.forum.vo.Usuario;
 
 public class WebUtil implements Serializable {
 	private static final long serialVersionUID = 1L;
+	private static final Logger log = Logger.getLogger(WebUtil.class.getName());
 	public static String URL_JSP_LOGIN = "/login.jsp";
 	public static String URL_JSP_USUARIO_CADASTRO = "/usuario/cadastro.jsp";
 	public static String URL_JSP_USUARIO_RANKING = "/usuario/ranking.jsp";
@@ -28,11 +31,10 @@ public class WebUtil implements Serializable {
 	private static void publicarMensagem(HttpServletRequest req, String mensagem, String tipo) {
 		req.setAttribute("mensagem",mensagem);
 		req.setAttribute("mensagem_class",tipo);
-		//req.getSession().setAttribute("mensagem",mensagem);
-		//req.getSession().setAttribute("mensagem_class",tipo);
 	}
-	public static void publicarMensagemFalha(HttpServletRequest req, String mensagem) {
-		WebUtil.publicarMensagem(req,mensagem,"falha");
+	public static void publicarMensagemFalha(HttpServletRequest req, Exception exception) {
+		WebUtil.publicarMensagem(req,exception.getMessage(),"falha");
+		log.log(Level.SEVERE, exception.getMessage(), exception);
 	}
 	public static void publicarMensagemSucesso(HttpServletRequest req, String mensagem) {
 		WebUtil.publicarMensagem(req,mensagem,"sucesso");

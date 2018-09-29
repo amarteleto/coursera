@@ -1,6 +1,7 @@
 package br.com.marteleto.coursera.forum.test.junit;
 
 import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertNotNull;
 
 import java.io.Serializable;
 import java.util.List;
@@ -27,16 +28,18 @@ public class ComentarioBusinessTest implements Serializable {
 	@Test
 	public void recuperarTodos() {
 		List<Comentario> comentarios = comentarioBusiness.recuperarTodos(1);
-		assertEquals(Integer.valueOf(1), comentarios.get(0).getId());
+		assertNotNull(comentarios);
 	}
 	
 	@Test
 	public void salvar() {
 		List<Comentario> comentarios = comentarioBusiness.recuperarTodos(1);
 		Integer novaQtd = comentarios.size() + 1;
-		Usuario criador = usuarioBusiness.recuperar("amarteleto");
+		Usuario criador = usuarioBusiness.recuperar("junit");
 		Integer pontos = criador.getPontos() + Constantes.PONTOS_COMENTARIO;
-		Topico topico = topicoBusiness.buscarTopico(1);
+		List<Topico> lista = topicoBusiness.recuperarTodos();
+		assertNotNull(lista);
+		Topico topico = lista.get(0);
 		Comentario comentario = new Comentario();
 		comentario.setComentario("bla bla bla bla");
 		comentario.setCriador(criador);
@@ -44,7 +47,7 @@ public class ComentarioBusinessTest implements Serializable {
 		comentarioBusiness.salvar(comentario);
 		List<Comentario> comentariosAtualizado = comentarioBusiness.recuperarTodos(1);
 		assertEquals(novaQtd, Integer.valueOf(comentariosAtualizado.size()));
-		Usuario criadorAtualizado = usuarioBusiness.recuperar("amarteleto");
+		Usuario criadorAtualizado = usuarioBusiness.recuperar("junit");
 		assertEquals(pontos, criadorAtualizado.getPontos());
 	}
 }

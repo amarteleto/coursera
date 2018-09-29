@@ -27,16 +27,14 @@
 				<td id="tdSemDados" colspan="3" align="center">Não existem usuarios a serem exibidos.</td>
 		<%	
 			} else {
-				int cont = 0;
 				for (Usuario usuario : usuarios) {
 		%>
-					<tr id="trResultado<% out.println(cont); %>" name="trResultados">
-						<td align='left'><% out.println(usuario.getPontos()); %></td>
-						<td align='center'><% out.println(usuario.getNome()); %></td>
-						<td align='center'><% out.println(usuario.getLogin()); %></td>
+					<tr name="trResultados">
+						<td align='center'><% out.println(usuario.getPontos()); %></td>
+						<td align='left'><% out.println(usuario.getNome()); %></td>
+						<td align='left'><% out.println(usuario.getLogin()); %></td>
 					</tr>
 		<%
-					cont++;
 				}
 			}
 		%>

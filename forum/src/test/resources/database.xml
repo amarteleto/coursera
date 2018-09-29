@@ -1,7 +1,5 @@
 <dataset>
-	<!--
-	<USUARIO LOGIN="amarteleto" EMAIL="amarteleto@outlook.com" SENHA="123456" NOME="Anderson Marteleto" PONTOS="0"/>
-	<TOPICO TITULO="JUnit Test" CONTEUDO="bla bla bla bla" LOGIN="amarteleto"/>
-	<COMENTARIO COMENTARIO="JUnit Test" LOGIN="amarteleto" ID_TOPICO="1"/>
-	-->
+	<USUARIO LOGIN="junit" EMAIL="junit@junit.com" SENHA="123456" NOME="Usuario JUnit Test" PONTOS="13"/>
+	<TOPICO TITULO="Topico JUnit Test" CONTEUDO="bla bla bla bla" LOGIN="junit"/>
+	<COMENTARIO COMENTARIO="Comentario JUnit Test" LOGIN="junit" ID_TOPICO="1"/>
 </dataset>
