@@ -7,23 +7,23 @@
 	<link rel="stylesheet" href="${pageContext.request.contextPath}/forum.css">
 </head>
 <body>
-	<center><h1>forum</h1></center>
+	<h1>forum</h1>
 	<span id="lbMensagem" class="${mensagem_class}">${mensagem}</span>
 	<form action="${pageContext.request.contextPath}/usuario/autenticar.slt" method="post">
 		<table border="1">
 			<tr>
-				<td colspan="2" align="center">identificação</td>
+				<td colspan="2" style="text-align: center">identificação</td>
 			</tr>
 			<tr>
-				<td align="right">login</td>
+				<td style="text-align: right">login</td>
 				<td><input type="text" id="txLogin" name="txLogin"></td>
 			</tr>
 			<tr>
-				<td align="right">senha</td>
+				<td style="text-align: right">senha</td>
 				<td><input type="text" id="txSenha" name="txSenha"></td>
 			</tr>
 			<tr>
-				<td colspan="2" align="center">
+				<td colspan="2" style="text-align: center">
 					<input type="submit" id="btAutenticar" value="autenticar">
 					<input type="button" id="btNovo" onclick="location.href='${pageContext.request.contextPath}/usuario/cadastro.jsp';" value="novo" />
 				</td>

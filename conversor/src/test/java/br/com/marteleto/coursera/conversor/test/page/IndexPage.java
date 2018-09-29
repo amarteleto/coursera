@@ -8,6 +8,8 @@ import org.openqa.selenium.support.FindBy;
 import org.openqa.selenium.support.How;
 import org.openqa.selenium.support.ui.Select;
 
+import br.com.marteleto.coursera.conversor.test.util.ConfigUtil;
+
 public class IndexPage implements Serializable {
 	private static final long serialVersionUID = 1L;
 	private final WebDriver driver;
@@ -22,6 +24,7 @@ public class IndexPage implements Serializable {
 		
 	public IndexPage(WebDriver driver) {
 		this.driver = driver;
+		this.driver.get(ConfigUtil.getSeleniumUrl() + "/");
 	}
 	
 	public Double converterCelsiusParaFahrenheit(Double celsius) {

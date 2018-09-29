@@ -44,7 +44,7 @@ public class ComentarioBusinessTest implements Serializable {
 		Usuario criador = usuarioBusiness.recuperar("junit");
 		Integer pontos = criador.getPontos() + Constantes.PONTOS_COMENTARIO;
 		Comentario comentario = new Comentario();
-		comentario.setComentario("bla bla bla bla");
+		comentario.setConteudo("bla bla bla bla");
 		comentario.setCriador(criador);
 		comentario.setTopico(topico);
 		comentarioBusiness.salvar(comentario);

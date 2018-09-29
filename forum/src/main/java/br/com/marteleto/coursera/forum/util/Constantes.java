@@ -5,25 +5,26 @@ import java.io.Serializable;
 public class Constantes implements Serializable {
 	private static final long serialVersionUID = 1L;
 	
-	public static Integer PONTOS_TOPICO = 10;
-	public static Integer PONTOS_COMENTARIO = 3;
+	public static final Integer PONTOS_TOPICO = 10;
+	public static final Integer PONTOS_COMENTARIO = 3;
 
-	public static String USUARIO_LOGADO_PARAMETER = "usuarioLogado";
+	public static final String USUARIO_LOGADO_PARAMETER = "usuarioLogado";
 	
-	public static String MSG_SUCESSO_AUTENTICACAO = "Seja bem vindo, usuário!";
-	public static String MSG_SUCESSO_SALVAR_USUARIO = "Usuário cadastrado com sucesso!";
-	public static String MSG_SUCESSO_SALVAR_TOPICO = "Tópico cadastrado com sucesso!";
-	public static String MSG_SUCESSO_SALVAR_COMENTARIO = "Comentário cadastrado com sucesso!";
+	public static final String MSG_SUCESSO_AUTENTICACAO = "Seja bem vindo, usuÃ¡rio!";
+	public static final String MSG_SUCESSO_SALVAR_USUARIO = "UsuÃ¡rio cadastrado com sucesso!";
+	public static final String MSG_SUCESSO_SALVAR_TOPICO = "TÃ³pico cadastrado com sucesso!";
+	public static final String MSG_SUCESSO_SALVAR_COMENTARIO = "Comentï¿½rio cadastrado com sucesso!";
 	
-	public static String MSG_FALHA_AUTENTICACAO = "Usuário não encontrado.";
-	public static String MSG_FALHA_SALVAR_USUARIO = "Falha ao salvar usuário.";
-	public static String MSG_FALHA_SALVAR_TOPICO = "Falha ao salvar tópico.";
-	public static String MSG_FALHA_SALVAR_COMENTARIO = "Falha ao salvar comentário.";
-	public static String MSG_FALHA_ADICIONAR_PONTO_USUARIO = "Falha ao adcionar ponto ao usuário.";
-	public static String MSG_FALHA_RECUPERAR_USUARIO = "Falha ao recuperar ao usuário.";
-	public static String MSG_FALHA_RECUPERAR_RANKING_USUARIO = "Falha ao recuperar ranking de usuários.";
-	public static String MSG_FALHA_RECUPERAR_TOPICO = "Falha ao recuperar ao tópicos.";
-	public static String MSG_FALHA_RECUPERAR_COMENTARIO = "Falha ao recuperar ao comentários.";
-	public static String MSG_FALHA_BUSCAR_TOPICO = "Falha ao buscar ao tópics.";
+	public static final String MSG_FALHA_AUTENTICACAO = "UsuÃ¡rio nÃ£o encontrado.";
+	public static final String MSG_FALHA_SALVAR_USUARIO = "Falha ao salvar usuÃ¡rio.";
+	public static final String MSG_FALHA_SALVAR_TOPICO = "Falha ao salvar tÃ³pico.";
+	public static final String MSG_FALHA_SALVAR_COMENTARIO = "Falha ao salvar comentÃ¡rio.";
+	public static final String MSG_FALHA_ADICIONAR_PONTO_USUARIO = "Falha ao adcionar ponto ao usuÃ¡rio.";
+	public static final String MSG_FALHA_RECUPERAR_USUARIO = "Falha ao recuperar ao usuÃ¡rio.";
+	public static final String MSG_FALHA_RECUPERAR_RANKING_USUARIO = "Falha ao recuperar ranking de usuÃ¡rios.";
+	public static final String MSG_FALHA_RECUPERAR_TOPICO = "Falha ao recuperar ao tÃ³picos.";
+	public static final String MSG_FALHA_RECUPERAR_COMENTARIO = "Falha ao recuperar ao comentÃ¡rios.";
+	public static final String MSG_FALHA_BUSCAR_TOPICO = "Falha ao buscar ao tÃ³picos.";
+	public static final String MSG_FALHA_RANKING_USUARIO = "Falha ao buscar ranking dos usuÃ¡rios.";
 	
 }

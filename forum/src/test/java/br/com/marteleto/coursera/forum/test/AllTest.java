@@ -11,13 +11,16 @@ import org.junit.runner.notification.Failure;
 import org.junit.runners.Suite;
 
 import br.com.marteleto.coursera.forum.test.junit.AllBusinessTest;
-import br.com.marteleto.coursera.forum.test.selenium.WebTest;
+import br.com.marteleto.coursera.forum.test.junit.AllOutrosTest;
+import br.com.marteleto.coursera.forum.test.junit.AllServletTest;
 import br.com.marteleto.coursera.forum.util.ConfigUtil;
 
 @RunWith(Suite.class)
 @Suite.SuiteClasses({
 	AllBusinessTest.class,
-	WebTest.class,
+	AllServletTest.class,
+	AllOutrosTest.class,
+	//WebTest.class,
 })
 public class AllTest implements Serializable {
 	private static final long serialVersionUID = 1L;

@@ -25,7 +25,7 @@ public class TradutorServlet extends HttpServlet {
 		out.println("<title>resultado</title>");
 		out.println("</head>");
 		out.println("<body>");
-		out.println("<div>A resposta é: <b><span id='resultado'>" + TradutorUtil.traduzir(chave)  + "</span></b></div>");
+		out.println("<div>A resposta Ã©: <b><span id='resultado'>" + TradutorUtil.traduzir(chave)  + "</span></b></div>");
 		out.println("</body>");
 		out.println("</html>");
 	}

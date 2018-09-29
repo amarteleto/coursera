@@ -2,7 +2,7 @@ notifications:
   email:
     on_failure: never
     on_success: never
-        
+
 language: java
 
 addons:

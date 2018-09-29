@@ -2,6 +2,7 @@ package br.com.marteleto.coursera.forum.filter;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.logging.Logger;
 
 import javax.servlet.Filter;
 import javax.servlet.FilterChain;
@@ -19,9 +20,11 @@ import br.com.marteleto.coursera.forum.vo.Usuario;
 
 @WebFilter("/*")
 public class UsuarioLogadoFilter implements Filter {
+	private static final Logger log = Logger.getLogger(UsuarioLogadoFilter.class.getName());
 	
 	@Override
 	public void init(FilterConfig filterConfig) throws ServletException {
+		log.info("UsuarioLogadoFilter init ignorado.");
 	}
 	
 	@Override

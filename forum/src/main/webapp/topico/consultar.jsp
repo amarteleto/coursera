@@ -9,7 +9,7 @@
 	<link rel="stylesheet" href="forum.css">
 </head>
 <body>
-	<center><h1>forum</h1></center>
+	<h1>forum</h1>
 	<span id="lbMensagem" class="${mensagem_class}">${mensagem}</span>
 
 	<form action="${pageContext.request.contextPath}/comentario/cadastro.slt" method="post">
@@ -20,48 +20,48 @@
 		<input type="hidden" id="txTopico" name="txTopico" value="<% out.println(topico.getId()); %>"/>
 		<table border="1">
 			<tr>
-				<td colspan="2" align="center">Tópico</td>
+				<td colspan="2" style="text-align: center">Tópico</td>
 			</tr>
 			<tr>
-				<td align="right">título</td>
+				<td style="text-align: right">título</td>
 				<td><% out.println(topico.getTitulo()); %></td>
 			</tr>
 			<tr>
-				<td align="right">conteudo</td>
+				<td style="text-align: right">conteudo</td>
 				<td><% out.println(topico.getConteudo()); %></td>
 			</tr>
 		</table>
 		<br>
 		<table border="1">
 			<tr>
-				<td colspan="2" align="center">Comentários: <span id="lbQtdComentario"><% out.println(comentarios.size()); %></span></td>
+				<td colspan="2" style="text-align: center">Comentários: <span id="lbQtdComentario"><% out.println(comentarios.size()); %></span></td>
 			</tr>
 			<tr>
-				<td align="center">Comentário</td>
-				<td align="center">Criador</td>
+				<td style="text-align: center">Comentário</td>
+				<td style="text-align: center">Criador</td>
 			</tr>
 			<%
 				if (comentarios.isEmpty()) {
 			%>
-					<td id="tdSemDados" colspan="2" align="center">Não existem comentários a serem exibidos.</td>
+					<td id="tdSemDados" colspan="2" style="text-align: center">Não existem comentários a serem exibidos.</td>
 			<%	
 				} else {
 					for (Comentario comentario : comentarios) {
 			%>
 						<tr id="trResultado<% out.println(comentario.getId()); %>" name="trResultados">
-							<td align='left'><% out.println(comentario.getComentario()); %></td>
-							<td align='center'><% out.println(comentario.getCriador().getNome()); %></td>
+							<td style="text-align: left"><% out.println(comentario.getConteudo()); %></td>
+							<td style="text-align: center"><% out.println(comentario.getCriador().getNome()); %></td>
 						</tr>
 			<%
 					}
 				}
 			%>
 			<tr>
-				<td align="center"><textarea id="txComentario" name="txComentario" rows="3" cols="40"></textarea></td>
-				<td align="center"><input type="submit" id="btSalvar" value="salvar"></td>
+				<td style="text-align: center"><textarea id="txComentario" name="txComentario" rows="3" cols="40"></textarea></td>
+				<td style="text-align: center"><input type="submit" id="btSalvar" value="salvar"></td>
 			</tr>
 			<tr>
-				<td colspan="2" align="center">
+				<td colspan="2" style="text-align: center">
 					<input type="button" id="btVoltar" onclick="location.href='${pageContext.request.contextPath}/topico/listar.slt';" value="voltar" />
 				</td>
 			</tr>

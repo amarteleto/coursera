@@ -6,6 +6,7 @@ import org.junit.Test;
 
 import br.com.marteleto.coursera.conversor.util.ConversorUtil;
 
+@SuppressWarnings("unused")
 public class ConversorUtilTest {
 
 	@Test
@@ -18,5 +19,10 @@ public class ConversorUtilTest {
 	public void converterFahrenheitParaCelsius() {
 		Double fahrenheit = ConversorUtil.converterFahrenheitParaCelsius(212.0);
 		assertEquals(Double.valueOf(100), fahrenheit);
+	}
+	
+	@Test
+	public void constantes() {
+		ConversorUtil conversorUtil = new ConversorUtil();
 	}
 }

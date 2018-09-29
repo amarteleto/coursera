@@ -9,37 +9,37 @@
 	<link rel="stylesheet" href="${pageContext.request.contextPath}/forum.css">
 </head>
 <body>
-	<center><h1>forum</h1></center>
+	<h1>forum</h1>
 	<span id="lbMensagem" class="${mensagem_class}">${mensagem}</span>
 	<table id="tbResultado" border="1">
 		<tr>
-			<td colspan="3" align="center">ranking</td>
+			<td colspan="3" style="text-align: center">ranking</td>
 		</tr>
 		<tr>
-			<td align="center">pontos</td>
-			<td align="center">nome</td>
-			<td align="center">login</td>
+			<td style="text-align: center">pontos</td>
+			<td style="text-align: center">nome</td>
+			<td style="text-align: center">login</td>
 		</tr>
 		<%
 			List<Usuario> usuarios = (List<Usuario>) request.getAttribute("usuarios");
 			if (usuarios.isEmpty()) {
 		%>
-				<td id="tdSemDados" colspan="3" align="center">Não existem usuarios a serem exibidos.</td>
+				<td id="tdSemDados" colspan="3" style="text-align: center">Não existem usuarios a serem exibidos.</td>
 		<%	
 			} else {
 				for (Usuario usuario : usuarios) {
 		%>
 					<tr name="trResultados">
-						<td align='center'><% out.println(usuario.getPontos()); %></td>
-						<td align='left'><% out.println(usuario.getNome()); %></td>
-						<td align='left'><% out.println(usuario.getLogin()); %></td>
+						<td style="text-align: center"><% out.println(usuario.getPontos()); %></td>
+						<td style="text-align: left"><% out.println(usuario.getNome()); %></td>
+						<td style="text-align: left"><% out.println(usuario.getLogin()); %></td>
 					</tr>
 		<%
 				}
 			}
 		%>
 		<tr>
-			<td colspan="3" align="center">
+			<td colspan="3" style="text-align: center">
 				<input type="button" id="btTopicos" onclick="location.href='${pageContext.request.contextPath}/topico/listar.slt';" value="tópicos" />
 			</td>
 		</tr>

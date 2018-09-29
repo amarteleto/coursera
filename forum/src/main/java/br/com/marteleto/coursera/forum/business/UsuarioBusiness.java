@@ -5,6 +5,7 @@ import java.util.List;
 import br.com.marteleto.coursera.forum.business.interfaces.IUsuarioBusiness;
 import br.com.marteleto.coursera.forum.dao.UsuarioDao;
 import br.com.marteleto.coursera.forum.dao.interfaces.IUsuarioDao;
+import br.com.marteleto.coursera.forum.exception.BusinessException;
 import br.com.marteleto.coursera.forum.util.Constantes;
 import br.com.marteleto.coursera.forum.vo.Usuario;
 
@@ -26,7 +27,7 @@ public class UsuarioBusiness implements IUsuarioBusiness {
 	public Usuario autenticar(String login, String senha) {
 		Usuario usuario = dao.recuperar(login, senha);
 		if (usuario == null) {
-			throw new RuntimeException(Constantes.MSG_FALHA_AUTENTICACAO);
+			throw new BusinessException(Constantes.MSG_FALHA_AUTENTICACAO);
 		}
 		return usuario;
 	}

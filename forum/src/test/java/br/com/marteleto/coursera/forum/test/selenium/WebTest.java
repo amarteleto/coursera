@@ -4,6 +4,7 @@ import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertTrue;
 
+import java.io.Serializable;
 import java.net.URL;
 import java.util.Calendar;
 
@@ -28,7 +29,8 @@ import br.com.marteleto.coursera.forum.vo.Topico;
 import br.com.marteleto.coursera.forum.vo.Usuario;
 
 @FixMethodOrder(MethodSorters.NAME_ASCENDING)
-public class WebTest {
+public class WebTest implements Serializable {
+	private static final long serialVersionUID = 1L;
 	private static WebDriver driver;
 	private static Integer pontos = 0;
 

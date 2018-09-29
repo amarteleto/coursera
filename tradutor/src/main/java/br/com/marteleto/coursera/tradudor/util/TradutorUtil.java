@@ -3,9 +3,12 @@ package br.com.marteleto.coursera.tradudor.util;
 import java.io.IOException;
 import java.io.Serializable;
 import java.util.Properties;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 
 public class TradutorUtil implements Serializable {
 	private static final long serialVersionUID = 1L;
+	private static final Logger log = Logger.getLogger(TradutorUtil.class.getName());
 	
 	private static Properties properties;
 	
@@ -17,7 +20,7 @@ public class TradutorUtil implements Serializable {
 					properties = new Properties();
 					properties.load(TradutorUtil.class.getClassLoader().getResourceAsStream("traducoes.properties"));
 				} catch (IOException ex) {
-					ex.printStackTrace();
+					log.log(Level.SEVERE, ex.getMessage(), ex);
 				}
 			}
 			resultado = properties.getProperty(chave);

@@ -7,24 +7,24 @@
 	<link rel="stylesheet" href="forum.css">
 </head>
 <body>
-	<center><h1>forum</h1></center>
+	<h1>forum</h1>
 	<span id="lbMensagem" class="${mensagem_class}">${mensagem}</span>
 
 	<form action="${pageContext.request.contextPath}/topico/cadastro.slt" method="post">
 		<table border="1">
 			<tr>
-				<td colspan="2" align="center">Cadastro de Tópico</td>
+				<td colspan="2" style="text-align: center">Cadastro de Tópico</td>
 			</tr>
 			<tr>
-				<td align="right">título</td>
+				<td style="text-align: right">título</td>
 				<td><input type="text" id="txTitulo" name="txTitulo"></td>
 			</tr>
 			<tr>
-				<td align="right">conteudo</td>
+				<td style="text-align: right">conteudo</td>
 				<td><textarea id="txConteudo" name="txConteudo" rows="5" cols="40"></textarea></td>
 			</tr>
 			<tr>
-				<td colspan="2" align="center">
+				<td colspan="2" style="text-align: center">
 					<input type="submit" id="btSalvar" value="salvar">
 					<input type="button" id="btCancelar" onclick="location.href='${pageContext.request.contextPath}/topico/listar.slt';" value="cancelar" />
 				</td>

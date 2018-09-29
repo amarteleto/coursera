@@ -1,7 +1,6 @@
 package br.com.marteleto.coursera.forum.util;
 
 import java.io.File;
-import java.io.IOException;
 import java.io.Serializable;
 import java.sql.Connection;
 import java.sql.DriverManager;
@@ -9,18 +8,25 @@ import java.sql.PreparedStatement;
 import java.sql.SQLException;
 import java.util.Properties;
 import java.util.Scanner;
+import java.util.logging.Level;
+import java.util.logging.Logger;
+
+import br.com.marteleto.coursera.forum.exception.BusinessException;
 
 public class ConfigUtil implements Serializable {
 	private static final long serialVersionUID = 1L;
+	private static final Logger log = Logger.getLogger(ConfigUtil.class.getName());
 	private static boolean ignoreInserts = false;
 	private static Properties properties = new Properties();
 	private static String create = ";create=true";
+	private static final String MENSAGEM_PADRAO = "ConfiguraÃ§Ã£o nao encontrada.";
 	
 	public static void definirConfiguracao(String file) {
+		ConfigUtil.properties.clear();
 		try {
 			ConfigUtil.properties.load(ConfigUtil.class.getClassLoader().getResourceAsStream(file));
-		} catch (IOException ex) {
-			throw new RuntimeException("Falha ao carregar configuração.", ex);
+		} catch (Exception ex) {
+			log.log(Level.WARNING, "Falha ao carregar configuraÃ§Ã£o.", ex);
 		}
 	}
 
@@ -34,22 +40,22 @@ public class ConfigUtil implements Serializable {
 		if (!ConfigUtil.properties.isEmpty()) {
 			return ConfigUtil.properties.getProperty("database.class");
 		}
-		throw new RuntimeException("Configuração não encontrada.");
+		throw new BusinessException(MENSAGEM_PADRAO);
 	}
 	
 	public static String getDatabaseUrl() {
 		if (!ConfigUtil.properties.isEmpty()) {
 			return ConfigUtil.properties.getProperty("database.url");
 		}
-		throw new RuntimeException("Configuração não encontrada.");
+		throw new BusinessException(MENSAGEM_PADRAO);
 	}
-	
-	public static String getSeleniumUrl() {
-		if (!ConfigUtil.properties.isEmpty()) {
+
+    public static String getSeleniumUrl() {
+   		if (!ConfigUtil.properties.isEmpty()) {
 			return ConfigUtil.properties.getProperty("selenium.url");
 		}
-		throw new RuntimeException("Configuração não encontrada.");
-	}
+		throw new BusinessException(MENSAGEM_PADRAO);
+    }
 	
 	private static void criarBancoDeDados() {
 		try (
@@ -60,25 +66,34 @@ public class ConfigUtil implements Serializable {
 				criarTabela(scanner.nextLine());
 			}
 		} catch (Exception ex) {
-			throw new RuntimeException("Falha ao carregar banco de dados.",ex);
+			throw new BusinessException("Falha ao carregar banco de dados.",ex);
 		}
 	}
 	
 	private static void criarTabela(String sql) {
+		PreparedStatement preparedStatement = null;
 		try (
 				Connection connection = DriverManager.getConnection(ConfigUtil.getDatabaseUrl() + ConfigUtil.create);
 			){
 				if (sql.startsWith("--") || (ConfigUtil.ignoreInserts && sql.toLowerCase().startsWith("insert"))) {
-					//NAO FAZ NADA
+					log.log(Level.INFO, "Ignorando SQL: {0}",sql); 
 				} else {
-					PreparedStatement preparedStatement = connection.prepareStatement(sql);
+					preparedStatement = connection.prepareStatement(sql);
 					preparedStatement.execute();
 				}
 				ConfigUtil.create = "";
 			} catch (SQLException ex) {
 				if(ex.getErrorCode() != 30000) {
-					throw new RuntimeException("Não foi possível criar as tabelas do banco de dados.",ex);
+					throw new BusinessException("NÃ£o foi possÃ­vel criar as tabelas do banco de dados.",ex);
 			    }
+			} finally {
+				if (preparedStatement != null) {
+					try {
+						preparedStatement.close();
+					} catch (SQLException e) {
+						//NAO FAZ NADA
+					}
+				}
 			}
 	}
 }

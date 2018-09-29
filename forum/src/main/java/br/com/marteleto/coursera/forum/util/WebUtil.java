@@ -14,26 +14,29 @@ import br.com.marteleto.coursera.forum.vo.Usuario;
 public class WebUtil implements Serializable {
 	private static final long serialVersionUID = 1L;
 	private static final Logger log = Logger.getLogger(WebUtil.class.getName());
-	public static String URL_JSP_LOGIN = "/login.jsp";
-	public static String URL_JSP_USUARIO_CADASTRO = "/usuario/cadastro.jsp";
-	public static String URL_JSP_USUARIO_RANKING = "/usuario/ranking.jsp";
-	public static String URL_JSP_TOPICO_CADASTRO = "/topico/cadastro.jsp";
-	public static String URL_JSP_LISTAR_TOPICO = "/topico/listar.jsp";
-	public static String URL_JSP_CONSULTAR_TOPICO = "/topico/consultar.jsp";
+	public static final String URL_JSP_LOGIN = "/login.jsp";
+	public static final String URL_JSP_USUARIO_CADASTRO = "/usuario/cadastro.jsp";
+	public static final String URL_JSP_USUARIO_RANKING = "/usuario/ranking.jsp";
+	public static final String URL_JSP_TOPICO_CADASTRO = "/topico/cadastro.jsp";
+	public static final String URL_JSP_LISTAR_TOPICO = "/topico/listar.jsp";
+	public static final String URL_JSP_CONSULTAR_TOPICO = "/topico/consultar.jsp";
 
-	public static String URL_SLT_CONSULTAR_TOPICO = "/topico/consultar.slt";
-	public static String URL_SLT_LISTAR_TOPICO = "/topico/listar.slt";
-	public static String URL_SLT_RANKING_USUARIO = "/usuario/ranking.slt";
+	public static final String URL_SLT_CONSULTAR_TOPICO = "/topico/consultar.slt";
+	public static final String URL_SLT_LISTAR_TOPICO = "/topico/listar.slt";
+	public static final String URL_SLT_RANKING_USUARIO = "/usuario/ranking.slt";
+	
+	public static final String ATRIBUTO_MENSAGEM = "mensagem";
+	public static final String ATRIBUTO_MENSAGEM_CLASS = "mensagem_class";
 	
 	private static void redirecionar(HttpServletRequest req, HttpServletResponse resp, String endereco) throws ServletException, IOException {
 		req.getRequestDispatcher(endereco).forward(req, resp);
 	}
 	private static void publicarMensagem(HttpServletRequest req, String mensagem, String tipo) {
-		req.setAttribute("mensagem",mensagem);
-		req.setAttribute("mensagem_class",tipo);
+		req.setAttribute(ATRIBUTO_MENSAGEM,mensagem);
+		req.setAttribute(ATRIBUTO_MENSAGEM_CLASS,tipo);
 	}
-	public static void publicarMensagemFalha(HttpServletRequest req, Exception exception) {
-		WebUtil.publicarMensagem(req,exception.getMessage(),"falha");
+	public static void publicarMensagemFalha(HttpServletRequest req, String mensagem, Exception exception) {
+		WebUtil.publicarMensagem(req,mensagem,"falha");
 		log.log(Level.SEVERE, exception.getMessage(), exception);
 	}
 	public static void publicarMensagemSucesso(HttpServletRequest req, String mensagem) {
@@ -46,8 +49,8 @@ public class WebUtil implements Serializable {
 		return (Usuario) req.getSession().getAttribute(Constantes.USUARIO_LOGADO_PARAMETER);
 	}
 	public static void limparMensagem(HttpServletRequest req) {
-		req.getSession().removeAttribute("mensagem");
-		req.getSession().removeAttribute("mensagem_class");
+		req.getSession().removeAttribute(ATRIBUTO_MENSAGEM);
+		req.getSession().removeAttribute(ATRIBUTO_MENSAGEM_CLASS);
 	}
 	//PAGINA
 	public static void redirecionarPaginaLogin(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
