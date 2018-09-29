@@ -7,6 +7,8 @@ import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;
 import org.openqa.selenium.support.How;
 
+import br.com.marteleto.coursera.forum.util.ConfigUtil;
+
 public class ConsultarTopicoPage implements Serializable {
 	private static final long serialVersionUID = 1L;
 	private final WebDriver driver;
@@ -28,7 +30,7 @@ public class ConsultarTopicoPage implements Serializable {
 	}
 	
 	public void acessarTopico(Integer topico) {
-		this.driver.get("http://localhost:8080/forum/topico/consultar.slt?txTopico=" + topico);
+		this.driver.get(ConfigUtil.getSeleniumUrl() + "/topico/consultar.slt?txTopico=" + topico);
 	}
 	
 	public Integer buscarQtdComentarios() {

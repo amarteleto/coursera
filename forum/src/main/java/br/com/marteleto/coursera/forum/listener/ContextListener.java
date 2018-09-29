@@ -15,6 +15,7 @@ public class ContextListener implements ServletContextListener {
     @Override
     public void contextInitialized(ServletContextEvent event) {
     	ConfigUtil.definirConfiguracao("forum.properties");
+    	ConfigUtil.prepararBancoDeDados(false);
     	log.info("[FORUM Inicializado com sucesso]");
     }
      

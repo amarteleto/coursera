@@ -17,18 +17,18 @@ public class ConfigUtil implements Serializable {
 	private static String create = ";create=true";
 	
 	public static void definirConfiguracao(String file) {
-		ConfigUtil.definirConfiguracao(file,false);
-	}
-
-	public static void definirConfiguracao(String file, boolean ignoreInserts) {
 		try {
-			ConfigUtil.ignoreInserts = ignoreInserts;
 			ConfigUtil.properties.load(ConfigUtil.class.getClassLoader().getResourceAsStream(file));
-			ConfigUtil.criarBancoDeDados();
 		} catch (IOException ex) {
 			throw new RuntimeException("Falha ao carregar configuração.", ex);
 		}
 	}
+
+	public static void prepararBancoDeDados(boolean ignoreInserts) {
+		ConfigUtil.ignoreInserts = ignoreInserts;
+		ConfigUtil.criarBancoDeDados();
+	}
+
 	
 	public static String getDatabaseClass() {
 		if (!ConfigUtil.properties.isEmpty()) {
@@ -40,6 +40,13 @@ public class ConfigUtil implements Serializable {
 	public static String getDatabaseUrl() {
 		if (!ConfigUtil.properties.isEmpty()) {
 			return ConfigUtil.properties.getProperty("database.url");
+		}
+		throw new RuntimeException("Configuração não encontrada.");
+	}
+	
+	public static String getSeleniumUrl() {
+		if (!ConfigUtil.properties.isEmpty()) {
+			return ConfigUtil.properties.getProperty("selenium.url");
 		}
 		throw new RuntimeException("Configuração não encontrada.");
 	}

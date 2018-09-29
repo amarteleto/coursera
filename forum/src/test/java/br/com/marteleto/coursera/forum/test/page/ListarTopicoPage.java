@@ -10,6 +10,8 @@ import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;
 import org.openqa.selenium.support.How;
 
+import br.com.marteleto.coursera.forum.util.ConfigUtil;
+
 public class ListarTopicoPage implements Serializable {
 	private static final long serialVersionUID = 1L;
 	private final WebDriver driver;
@@ -26,7 +28,7 @@ public class ListarTopicoPage implements Serializable {
 
 	public ListarTopicoPage(WebDriver driver) {
 		this.driver = driver;
-		this.driver.get("http://localhost:8080/forum/topico/listar.slt");
+		this.driver.get(ConfigUtil.getSeleniumUrl() + "/topico/listar.slt");
 	}
 	
 	public void novoCadastro() {

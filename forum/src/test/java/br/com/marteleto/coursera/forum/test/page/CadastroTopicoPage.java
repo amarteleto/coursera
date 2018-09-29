@@ -7,6 +7,7 @@ import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;
 import org.openqa.selenium.support.How;
 
+import br.com.marteleto.coursera.forum.util.ConfigUtil;
 import br.com.marteleto.coursera.forum.vo.Topico;
 
 public class CadastroTopicoPage implements Serializable {
@@ -25,7 +26,7 @@ public class CadastroTopicoPage implements Serializable {
 		
 	public CadastroTopicoPage(WebDriver driver) {
 		this.driver = driver;
-		this.driver.get("http://localhost:8080/forum/topico/cadastro.jsp");
+		this.driver.get(ConfigUtil.getSeleniumUrl() + "/topico/cadastro.jsp");
 	}
 	
 	public String cadastrar(Topico topico) {

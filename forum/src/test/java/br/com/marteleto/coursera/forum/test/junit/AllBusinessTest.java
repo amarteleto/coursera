@@ -21,7 +21,7 @@ public class AllBusinessTest implements Serializable {
 	
 	@BeforeClass
 	public static void before() throws Exception {
-		ConfigUtil.definirConfiguracao("forumTest.properties", true);
+		ConfigUtil.prepararBancoDeDados(true);
 		FlatXmlDataFileLoader flatXmlDataFileLoader = new FlatXmlDataFileLoader();
 		JdbcDatabaseTester jdbcDatabaseTester = new JdbcDatabaseTester(ConfigUtil.getDatabaseClass(), ConfigUtil.getDatabaseUrl());
 		jdbcDatabaseTester.setDataSet(flatXmlDataFileLoader.load("/database.xml"));

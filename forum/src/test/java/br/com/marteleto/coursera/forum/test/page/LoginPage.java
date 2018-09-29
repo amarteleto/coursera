@@ -7,6 +7,8 @@ import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;
 import org.openqa.selenium.support.How;
 
+import br.com.marteleto.coursera.forum.util.ConfigUtil;
+
 public class LoginPage implements Serializable {
 	private static final long serialVersionUID = 1L;
 	private final WebDriver driver;
@@ -23,7 +25,7 @@ public class LoginPage implements Serializable {
 		
 	public LoginPage(WebDriver driver) {
 		this.driver = driver;
-		this.driver.get("http://localhost:8080/forum/");
+		this.driver.get(ConfigUtil.getSeleniumUrl() + "/login.jsp");
 	}
 	
 	public String autenticar(String login, String senha) {

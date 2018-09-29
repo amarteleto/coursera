@@ -27,25 +27,28 @@ public class ComentarioBusinessTest implements Serializable {
 	
 	@Test
 	public void recuperarTodos() {
-		List<Comentario> comentarios = comentarioBusiness.recuperarTodos(1);
+		List<Topico> lista = topicoBusiness.recuperarTodos();
+		assertNotNull(lista);
+		Topico topico = lista.get(0);
+		List<Comentario> comentarios = comentarioBusiness.recuperarTodos(topico.getId());
 		assertNotNull(comentarios);
 	}
 	
 	@Test
 	public void salvar() {
-		List<Comentario> comentarios = comentarioBusiness.recuperarTodos(1);
-		Integer novaQtd = comentarios.size() + 1;
-		Usuario criador = usuarioBusiness.recuperar("junit");
-		Integer pontos = criador.getPontos() + Constantes.PONTOS_COMENTARIO;
 		List<Topico> lista = topicoBusiness.recuperarTodos();
 		assertNotNull(lista);
 		Topico topico = lista.get(0);
+		List<Comentario> comentarios = comentarioBusiness.recuperarTodos(topico.getId());
+		Integer novaQtd = comentarios.size() + 1;
+		Usuario criador = usuarioBusiness.recuperar("junit");
+		Integer pontos = criador.getPontos() + Constantes.PONTOS_COMENTARIO;
 		Comentario comentario = new Comentario();
 		comentario.setComentario("bla bla bla bla");
 		comentario.setCriador(criador);
 		comentario.setTopico(topico);
 		comentarioBusiness.salvar(comentario);
-		List<Comentario> comentariosAtualizado = comentarioBusiness.recuperarTodos(1);
+		List<Comentario> comentariosAtualizado = comentarioBusiness.recuperarTodos(topico.getId());
 		assertEquals(novaQtd, Integer.valueOf(comentariosAtualizado.size()));
 		Usuario criadorAtualizado = usuarioBusiness.recuperar("junit");
 		assertEquals(pontos, criadorAtualizado.getPontos());

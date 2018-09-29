@@ -10,6 +10,8 @@ import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;
 import org.openqa.selenium.support.How;
 
+import br.com.marteleto.coursera.forum.util.ConfigUtil;
+
 public class ListarRankingPage implements Serializable {
 	private static final long serialVersionUID = 1L;
 	private final WebDriver driver;
@@ -24,7 +26,7 @@ public class ListarRankingPage implements Serializable {
 		
 	public ListarRankingPage(WebDriver driver) {
 		this.driver = driver;
-		this.driver.get("http://localhost:8080/forum/usuario/ranking.slt");
+		this.driver.get(ConfigUtil.getSeleniumUrl() + "/usuario/ranking.slt");
 	}
 	
 	public void acessarTopicos() {
