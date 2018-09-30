@@ -9,6 +9,7 @@ import org.openqa.selenium.support.How;
 
 import br.com.marteleto.coursera.forum.util.ConfigUtil;
 import br.com.marteleto.coursera.forum.vo.Topico;
+import br.com.marteleto.coursera.selenium.util.WebDriverUtil;
 
 public class CadastroTopicoPage implements Serializable {
 	private static final long serialVersionUID = 1L;
@@ -33,10 +34,12 @@ public class CadastroTopicoPage implements Serializable {
 		txTitulo.sendKeys(topico.getTitulo());
 		txConteudo.sendKeys(topico.getConteudo());
         btSalvar.click();
+        WebDriverUtil.waitForLoad();
 		return lbMensagem.getText();
 	}
 	
 	public void cancelar() {
 		btCancelar.click();
+		WebDriverUtil.waitForLoad();
 	}
 }

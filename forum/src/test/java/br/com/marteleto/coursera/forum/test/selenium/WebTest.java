@@ -5,7 +5,6 @@ import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertTrue;
 
 import java.io.Serializable;
-import java.net.URL;
 import java.util.Calendar;
 
 import org.junit.AfterClass;
@@ -15,7 +14,6 @@ import org.junit.FixMethodOrder;
 import org.junit.Test;
 import org.junit.runners.MethodSorters;
 import org.openqa.selenium.WebDriver;
-import org.openqa.selenium.chrome.ChromeDriver;
 import org.openqa.selenium.support.PageFactory;
 
 import br.com.marteleto.coursera.forum.test.page.CadastroTopicoPage;
@@ -24,9 +22,11 @@ import br.com.marteleto.coursera.forum.test.page.ConsultarTopicoPage;
 import br.com.marteleto.coursera.forum.test.page.ListarRankingPage;
 import br.com.marteleto.coursera.forum.test.page.ListarTopicoPage;
 import br.com.marteleto.coursera.forum.test.page.LoginPage;
+import br.com.marteleto.coursera.forum.util.ConfigUtil;
 import br.com.marteleto.coursera.forum.util.Constantes;
 import br.com.marteleto.coursera.forum.vo.Topico;
 import br.com.marteleto.coursera.forum.vo.Usuario;
+import br.com.marteleto.coursera.selenium.util.WebDriverUtil;
 
 @FixMethodOrder(MethodSorters.NAME_ASCENDING)
 public class WebTest implements Serializable {
@@ -36,9 +36,7 @@ public class WebTest implements Serializable {
 
 	@BeforeClass
 	public static void beforeClass() {
-		URL url = WebTest.class.getResource("/webdriver/chrome/2.41/chromedriver.exe");
-        System.setProperty("webdriver.chrome.driver", url.getFile());
-        driver = new ChromeDriver();
+		driver = WebDriverUtil.getWebDriver(ConfigUtil.getSeleniumWebdriverType(),ConfigUtil.getSeleniumWebdriverVersion());
 	}
 	
 	@AfterClass

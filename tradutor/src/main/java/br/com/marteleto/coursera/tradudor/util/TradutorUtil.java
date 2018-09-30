@@ -14,20 +14,28 @@ public class TradutorUtil implements Serializable {
 	
 	public static String traduzir(String chave) {
 		String resultado = null;
-		if (chave != null && !chave.trim().equals("")) {
-			if (properties == null) {
-				try {
-					properties = new Properties();
-					properties.load(TradutorUtil.class.getClassLoader().getResourceAsStream("traducoes.properties"));
-				} catch (IOException ex) {
-					log.log(Level.SEVERE, ex.getMessage(), ex);
-				}
-			}
+		if (isChaveValida(chave)) {
+			loadFile();
 			resultado = properties.getProperty(chave);
 			if (resultado == null || resultado.trim().equals("")) {
 				resultado = chave;
 			}
 		}
 		return resultado;
+	}
+	
+	private static boolean isChaveValida(String chave) {
+		return (chave != null && !chave.trim().equals(""));
+	}
+	
+	private static void loadFile() {
+		if (properties == null) {
+			try {
+				properties = new Properties();
+				properties.load(TradutorUtil.class.getClassLoader().getResourceAsStream("traducoes.properties"));
+			} catch (IOException ex) {
+				log.log(Level.SEVERE, ex.getMessage(), ex);
+			}
+		}
 	}
 }

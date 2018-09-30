@@ -23,6 +23,16 @@ public class UsuarioDao implements IUsuarioDao {
 	private final String databaseClass;
 	private final String databaseUrl;
 	
+	private Usuario criarUsuario(ResultSet resultSet) throws SQLException {
+		Usuario usuario = new Usuario();
+		usuario.setLogin(resultSet.getString("login"));
+		usuario.setEmail(resultSet.getString("email"));
+		usuario.setNome(resultSet.getString("nome"));
+		usuario.setSenha(resultSet.getString("senha"));
+		usuario.setPontos(resultSet.getInt("pontos"));
+		return usuario;
+	}
+	
 	public UsuarioDao(String databaseClass,String databaseUrl) {
 		this.databaseUrl = databaseUrl;
 		this.databaseClass = databaseClass;
@@ -77,13 +87,7 @@ public class UsuarioDao implements IUsuarioDao {
 			preparedStatement.setString(1, login);
 			resultSet = preparedStatement.executeQuery();
 			if (resultSet.next()) {
-				Usuario usuario = new Usuario();
-				usuario.setLogin(resultSet.getString("login"));
-				usuario.setEmail(resultSet.getString("email"));
-				usuario.setNome(resultSet.getString("nome"));
-				usuario.setSenha(resultSet.getString("senha"));
-				usuario.setPontos(resultSet.getInt("pontos"));
-				return usuario;
+				return this.criarUsuario(resultSet);
 			}
 			return null;
 		} catch (SQLException ex) {
@@ -103,11 +107,7 @@ public class UsuarioDao implements IUsuarioDao {
 	public void adicionarPontos(String login, int pontos) {
 		Usuario usuario = this.recuperar(login);
 		if (usuario != null) {
-			Integer pontosBd = usuario.getPontos();
-			if (pontosBd == null) {
-				pontosBd = 0;
-			}
-			pontosBd = pontosBd + pontos;
+			Integer pontosBd = usuario.getPontos() + pontos;
 			String sql = "UPDATE usuario SET pontos = ? WHERE login = ?";
 			try (
 				Connection connection = DriverManager.getConnection(this.databaseUrl);
@@ -134,13 +134,7 @@ public class UsuarioDao implements IUsuarioDao {
 			ResultSet resultSet = preparedStatement.executeQuery();
 		){
 			while (resultSet.next()) {
-				Usuario usuario = new Usuario();
-				usuario.setLogin(resultSet.getString("login"));
-				usuario.setEmail(resultSet.getString("email"));
-				usuario.setNome(resultSet.getString("nome"));
-				usuario.setSenha(resultSet.getString("senha"));
-				usuario.setPontos(resultSet.getInt("pontos"));
-				usuarios.add(usuario);
+				usuarios.add(this.criarUsuario(resultSet));
 			}
 		} catch (SQLException ex) {
 			throw new DaoException("Falha ao executar ranking de usuários.",ex);

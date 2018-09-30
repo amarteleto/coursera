@@ -12,4 +12,4 @@ addons:
       secure: $SONAR_KEY
 
 script:
-  - mvn clean install sonar:sonar -Dmaven.test.failure.ignore=true -Dtest=AllTest
+  - mvn clean install sonar:sonar -DfailIfNoTests=false -Dmaven.test.failure.ignore=true -Dtest=AllTest

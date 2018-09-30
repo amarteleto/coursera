@@ -31,6 +31,7 @@
 	</developers>
   	
   	<modules>
+  		<module>selenium</module>
   		<module>conversor</module>
   		<module>dbunit</module>
   		<module>forum</module>
@@ -41,10 +42,14 @@
       	<maven.compiler.source>1.8</maven.compiler.source>
         <maven.compiler.target>1.8</maven.compiler.target>
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
-        <sonar.jacoco.reportPaths>./../target/jacoco.exec</sonar.jacoco.reportPaths>
-        <sonar.junit.reportPaths>./../target/surefire-reports</sonar.junit.reportPaths>
-        <sonar.surefire.reportsPath>./../target/surefire-reports</sonar.surefire.reportsPath>
-        <sonar.failsafe.reportsPath>./../target/failsafe-reports</sonar.failsafe.reportsPath>
+        
+        <project.jacoco.report.path>${project.build.directory}</project.jacoco.report.path>
+        <project.jacoco.skip>false</project.jacoco.skip>
+        
+        <sonar.jacoco.reportPaths>${project.jacoco.report.path}/jacoco.exec</sonar.jacoco.reportPaths>
+        <sonar.junit.reportPaths>${project.jacoco.report.path}/reports</sonar.junit.reportPaths>
+        <sonar.surefire.reportsPath>${project.jacoco.report.path}/reports</sonar.surefire.reportsPath>
+        <sonar.failsafe.reportsPath>${project.jacoco.report.path}/reports</sonar.failsafe.reportsPath>
     </properties>
     
     <build>
@@ -149,22 +154,72 @@
                 		</goals>
                 		<configuration>
                     		<argLine>${failsafeArgLine}</argLine>
-                    		<reportsDirectory>${sonar.failsafe.reportsPath}</reportsDirectory>
+                    		<summaryFile>${sonar.failsafe.reportsPath}/failsafe-summary.xml</summaryFile>
                 		</configuration>
             		</execution>
         		</executions>
     		</plugin>
+    		<plugin>
+				<groupId>org.apache.maven.plugins</groupId>
+				<artifactId>maven-antrun-plugin</artifactId>
+				<version>1.8</version>
+				<configuration>
+					<skip>${project.jacoco.skip}</skip>
+				</configuration>
+				<executions>
+					<execution>
+						<phase>post-integration-test</phase>
+						<goals>
+							<goal>run</goal>
+						</goals>
+						<configuration>
+							<target>
+								<echo message="Generating JaCoCo Reports" />
+								<taskdef name="report" classname="org.jacoco.ant.ReportTask">
+									<classpath path="${project.build.directory}/jacoco-jars/org.jacoco.ant.jar" />
+								</taskdef>
+								<mkdir dir="${project.reporting.outputDirectory}/jacoco" />
+								<report>
+									<executiondata>
+										<fileset dir="${project.build.directory}">
+											<include name="jacoco.exec" />
+										</fileset>
+									</executiondata>
+									<structure name="jacoco-multi Coverage Project">
+										<group name="jacoco-multi">
+											<classfiles>
+												<fileset dir="${project.basedir}">
+													<include name="**/target/classes/**"/>
+												</fileset>
+											</classfiles>
+											<sourcefiles encoding="UTF-8">
+												<fileset dir="${project.basedir}">
+													<include name="**/src/main/java/**"/>
+												</fileset>
+											</sourcefiles>
+										</group>
+									</structure>
+									<html destdir="${project.reporting.outputDirectory}/jacoco" />
+									<xml destfile="${project.reporting.outputDirectory}/jacoco/jacoco.xml" />
+									<csv destfile="${project.reporting.outputDirectory}/jacoco/jacoco.csv" />
+								</report>
+							</target>
+						</configuration>
+					</execution>
+				</executions>
+				<dependencies>
+					<dependency>
+						<groupId>org.jacoco</groupId>
+						<artifactId>org.jacoco.ant</artifactId>
+						<version>0.8.1</version>
+					</dependency>
+				</dependencies>
+			</plugin>
       	</plugins>
     </build>
     
     <dependencies>
 		<!-- TEST Dependency -->
-    	<dependency>
-		    <groupId>org.seleniumhq.selenium</groupId>
-		    <artifactId>selenium-java</artifactId>
-		    <version>3.14.0</version>
-		    <scope>test</scope>
-		</dependency>
     	<dependency>
 		    <groupId>junit</groupId>
 		    <artifactId>junit</artifactId>

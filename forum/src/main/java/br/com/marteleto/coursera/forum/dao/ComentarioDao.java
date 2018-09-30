@@ -7,8 +7,6 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
-import java.util.logging.Level;
-import java.util.logging.Logger;
 
 import br.com.marteleto.coursera.forum.dao.interfaces.IComentarioDao;
 import br.com.marteleto.coursera.forum.exception.DaoException;
@@ -18,12 +16,10 @@ import br.com.marteleto.coursera.forum.vo.Comentario;
 import br.com.marteleto.coursera.forum.vo.Topico;
 import br.com.marteleto.coursera.forum.vo.Usuario;
 
-public class ComentarioDao implements IComentarioDao {
+public class ComentarioDao extends ADao implements IComentarioDao {
 	private static final long serialVersionUID = 1L;
-	private static final Logger log = Logger.getLogger(ComentarioDao.class.getName());
-
-	@Override
-	public List<Comentario> recuperarTodos(Integer topico) {
+	
+	private String getSqlRecuperarTodos() {
 		StringBuilder sql = new StringBuilder();
 		sql.append(" SELECT");
 		sql.append(" 	come.id_comentario,");
@@ -40,37 +36,40 @@ public class ComentarioDao implements IComentarioDao {
 		sql.append(" 	AND topi.id_topico = ?");
 		sql.append(" ORDER BY");
 		sql.append(" 	come.id_comentario");
+		return sql.toString();
+	}
+	
+	private Comentario criarComentario(ResultSet resultSet) throws SQLException {
+		Comentario comentario = new Comentario();
+		comentario.setId(resultSet.getInt("id_comentario"));
+		comentario.setConteudo(resultSet.getString("comentario"));
+		comentario.setCriador(new Usuario());
+		comentario.getCriador().setLogin(resultSet.getString("login"));
+		comentario.getCriador().setNome(resultSet.getString("nome"));
+		comentario.setTopico(new Topico());
+		comentario.getTopico().setId(resultSet.getInt("id_topico"));
+		comentario.getTopico().setTitulo(resultSet.getString("titulo"));
+		return comentario;
+	}
+
+	@Override
+	public List<Comentario> recuperarTodos(Integer topico) {
 		ResultSet resultSet = null;
 		try (
 			Connection connection = DriverManager.getConnection(ConfigUtil.getDatabaseUrl());
-			PreparedStatement preparedStatement = connection.prepareStatement(sql.toString());
+			PreparedStatement preparedStatement = connection.prepareStatement(this.getSqlRecuperarTodos());
 		){
 			preparedStatement.setInt(1, topico);
 			resultSet = preparedStatement.executeQuery();
 			List<Comentario> comentarios = new ArrayList<>();
 			while (resultSet.next()) {
-				Comentario comentario = new Comentario();
-				comentario.setId(resultSet.getInt("id_comentario"));
-				comentario.setConteudo(resultSet.getString("comentario"));
-				comentario.setCriador(new Usuario());
-				comentario.getCriador().setLogin(resultSet.getString("login"));
-				comentario.getCriador().setNome(resultSet.getString("nome"));
-				comentario.setTopico(new Topico());
-				comentario.getTopico().setId(resultSet.getInt("id_topico"));
-				comentario.getTopico().setTitulo(resultSet.getString("titulo"));
-				comentarios.add(comentario);
+				comentarios.add(this.criarComentario(resultSet));
 			}
 			return comentarios;
 		} catch (SQLException ex) {
 			throw new DaoException(Constantes.MSG_FALHA_RECUPERAR_COMENTARIO,ex);
 		} finally {
-			if (resultSet != null) {
-				try {
-					resultSet.close();
-				} catch (SQLException ex) {
-					log.log(Level.SEVERE, ex.getMessage(), ex);
-				}
-			}
+			closeResultSet(resultSet);
 		}
 	}
 

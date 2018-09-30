@@ -14,8 +14,17 @@
   	
     <name>dbunit</name>
   	<description>dbunit</description>
-  	
-    <dependencies>
+	
+	<properties>
+		<project.jacoco.report.path>./../target</project.jacoco.report.path>
+		<project.jacoco.skip>true</project.jacoco.skip>
+	</properties>
+	
+	<build>
+        <finalName>${project.artifactId}</finalName>
+	</build>
+	
+	<dependencies>
 		<dependency>
 		    <groupId>org.apache.derby</groupId>
 		    <artifactId>derby</artifactId>
@@ -23,9 +32,5 @@
 		    <scope>test</scope>
 		</dependency>
 	</dependencies>
-	
-	<build>
-        <finalName>${project.artifactId}</finalName>
-	</build>
 	
 </project>

@@ -3,16 +3,15 @@ package br.com.marteleto.coursera.tradutor.test.selenium;
 import static org.junit.Assert.assertEquals;
 
 import java.io.Serializable;
-import java.net.URL;
 
 import org.junit.AfterClass;
 import org.junit.Before;
 import org.junit.BeforeClass;
 import org.junit.Test;
 import org.openqa.selenium.WebDriver;
-import org.openqa.selenium.chrome.ChromeDriver;
 import org.openqa.selenium.support.PageFactory;
 
+import br.com.marteleto.coursera.selenium.util.WebDriverUtil;
 import br.com.marteleto.coursera.tradutor.test.page.IndexPage;
 
 public class WebTest implements Serializable {
@@ -22,9 +21,7 @@ public class WebTest implements Serializable {
 
 	@BeforeClass
 	public static void beforeClass() {
-		URL url = WebTest.class.getResource("/webdriver/chrome/2.41/chromedriver.exe");
-        System.setProperty("webdriver.chrome.driver", url.getFile());
-        driver = new ChromeDriver();
+		driver = WebDriverUtil.getWebDriver(WebDriverUtil.chrome, "2.41");
 	}
 	
 	@AfterClass
