@@ -7,8 +7,6 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
-import java.util.logging.Level;
-import java.util.logging.Logger;
 
 import br.com.marteleto.coursera.forum.dao.interfaces.IUsuarioDao;
 import br.com.marteleto.coursera.forum.exception.DaoException;
@@ -16,10 +14,19 @@ import br.com.marteleto.coursera.forum.util.ConfigUtil;
 import br.com.marteleto.coursera.forum.util.Constantes;
 import br.com.marteleto.coursera.forum.vo.Usuario;
 
-public class UsuarioDao implements IUsuarioDao {
+public class UsuarioDao extends ADao implements IUsuarioDao {
 	private static final long serialVersionUID = 1L;
-	private static final Logger log = Logger.getLogger(UsuarioDao.class.getName());
 	
+	private Usuario criarUsuario(ResultSet resultSet) throws SQLException {
+		Usuario usuario = new Usuario();
+		usuario.setLogin(resultSet.getString("login"));
+		usuario.setEmail(resultSet.getString("email"));
+		usuario.setSenha(resultSet.getString("senha"));
+		usuario.setNome(resultSet.getString("nome"));
+		usuario.setPontos(resultSet.getInt("pontos"));
+		return usuario;
+	}
+
 	@Override
 	public void salvar(Usuario usuario) {
 		String sql = "INSERT INTO usuario(login, email, senha, nome, pontos) VALUES (?, ?, ?, ?, ?)";
@@ -41,12 +48,7 @@ public class UsuarioDao implements IUsuarioDao {
 	@Override
 	public Usuario recuperar(String login, String senha) {
 		StringBuilder sql = new StringBuilder();
-		sql.append(" SELECT ");
-		sql.append(" 	usua.*");
-		sql.append(" FROM");
-		sql.append(" 	usuario usua");
-		sql.append(" WHERE 1=1");
-		sql.append(" 	AND usua.login = ?");
+		sql.append(" SELECT usua.*  FROM usuario usua WHERE 1=1 AND usua.login = ?");
 		if (senha != null) {
 			sql.append(" 	AND usua.senha = ?");
 		}
@@ -61,25 +63,13 @@ public class UsuarioDao implements IUsuarioDao {
 			}
 			resultSet = preparedStatement.executeQuery();
 			if (resultSet.next()) {
-				Usuario usuario = new Usuario();
-				usuario.setLogin(resultSet.getString("login"));
-				usuario.setEmail(resultSet.getString("email"));
-				usuario.setSenha(resultSet.getString("senha"));
-				usuario.setNome(resultSet.getString("nome"));
-				usuario.setPontos(resultSet.getInt("pontos"));
-				return usuario;
+				return this.criarUsuario(resultSet);
 			}
 			return null;
 		} catch (SQLException ex) {
 			throw new DaoException(Constantes.MSG_FALHA_RECUPERAR_USUARIO,ex);
 		} finally {
-			if (resultSet != null) {
-				try {
-					resultSet.close();
-				} catch (SQLException ex) {
-					log.log(Level.SEVERE, ex.getMessage(), ex);
-				}
-			}
+			closeResultSet(resultSet);
 		}
 	}
 
@@ -106,9 +96,7 @@ public class UsuarioDao implements IUsuarioDao {
 	public List<Usuario> recuperarRanking() {
 		StringBuilder sql = new StringBuilder();
 		sql.append(" SELECT");
-		sql.append(" 	usua.login,");
-		sql.append(" 	usua.pontos,");
-		sql.append(" 	usua.nome");
+		sql.append(" 	usua.* ");
 		sql.append(" FROM");
 		sql.append(" 	usuario usua");
 		sql.append(" ORDER BY");
@@ -120,11 +108,7 @@ public class UsuarioDao implements IUsuarioDao {
 		){
 			List<Usuario> usuarios = new ArrayList<>();
 			while (resultSet.next()) {
-				Usuario usuario = new Usuario();
-				usuario.setLogin(resultSet.getString("login"));
-				usuario.setNome(resultSet.getString("nome"));
-				usuario.setPontos(resultSet.getInt("pontos"));
-				usuarios.add(usuario);
+				usuarios.add(this.criarUsuario(resultSet));
 			}
 			return usuarios;
 		} catch (SQLException ex) {

@@ -46,7 +46,10 @@ public class WebUtil implements Serializable {
 		req.getSession().setAttribute(Constantes.USUARIO_LOGADO_PARAMETER, usuario);
 	}
 	public static Usuario getUsuarioLogado(HttpServletRequest req) {
-		return (Usuario) req.getSession().getAttribute(Constantes.USUARIO_LOGADO_PARAMETER);
+		if (req.getSession() != null) {
+			return (Usuario) req.getSession().getAttribute(Constantes.USUARIO_LOGADO_PARAMETER);
+		}
+		return null;
 	}
 	public static void limparMensagem(HttpServletRequest req) {
 		req.getSession().removeAttribute(ATRIBUTO_MENSAGEM);

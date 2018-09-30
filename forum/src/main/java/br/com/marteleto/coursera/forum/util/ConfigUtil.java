@@ -70,22 +70,28 @@ public class ConfigUtil implements Serializable {
 		}
 	}
 	
+	private static boolean executarSql(String sql) {
+		return !(sql.startsWith("--") || (ConfigUtil.ignoreInserts && sql.toLowerCase().startsWith("insert")));
+	}
+	
+	private static void validarSqlException(SQLException ex) {
+		if(ex.getErrorCode() != 30000) {
+			throw new BusinessException("Não foi possível criar as tabelas do banco de dados.",ex);
+	    }
+	}
+	
 	private static void criarTabela(String sql) {
 		PreparedStatement preparedStatement = null;
 		try (
 				Connection connection = DriverManager.getConnection(ConfigUtil.getDatabaseUrl() + ConfigUtil.create);
 			){
-				if (sql.startsWith("--") || (ConfigUtil.ignoreInserts && sql.toLowerCase().startsWith("insert"))) {
-					log.log(Level.INFO, "Ignorando SQL: {0}",sql); 
-				} else {
+				if (executarSql(sql)) {
 					preparedStatement = connection.prepareStatement(sql);
 					preparedStatement.execute();
 				}
 				ConfigUtil.create = "";
 			} catch (SQLException ex) {
-				if(ex.getErrorCode() != 30000) {
-					throw new BusinessException("Não foi possível criar as tabelas do banco de dados.",ex);
-			    }
+				validarSqlException(ex);
 			} finally {
 				if (preparedStatement != null) {
 					try {
