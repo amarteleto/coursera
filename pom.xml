@@ -31,20 +31,24 @@
 	</developers>
   	
   	<modules>
+  		<module>selenium</module>
   		<module>conversor</module>
   		<module>dbunit</module>
   		<module>forum</module>
   		<module>tradutor</module>
+  		<module>cobertura</module>
 	</modules>
 	
 	<properties>
+		<project.reports.skip>true</project.reports.skip>
+		<project.reports.path>./../target</project.reports.path>
       	<maven.compiler.source>1.8</maven.compiler.source>
         <maven.compiler.target>1.8</maven.compiler.target>
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
-        <sonar.jacoco.reportPaths>./../target/jacoco.exec</sonar.jacoco.reportPaths>
-        <sonar.junit.reportPaths>./../target/surefire-reports</sonar.junit.reportPaths>
-        <sonar.surefire.reportsPath>./../target/surefire-reports</sonar.surefire.reportsPath>
-        <sonar.failsafe.reportsPath>./../target/failsafe-reports</sonar.failsafe.reportsPath>
+        <sonar.jacoco.reportPaths>${project.reports.path}/jacoco.exec</sonar.jacoco.reportPaths>
+        <sonar.junit.reportPaths>${project.reports.path}/reports</sonar.junit.reportPaths>
+        <sonar.surefire.reportsPath>${sonar.junit.reportPaths}</sonar.surefire.reportsPath>
+        <sonar.failsafe.reportsPath>${sonar.junit.reportPaths}</sonar.failsafe.reportsPath>
     </properties>
     
     <build>
@@ -79,6 +83,9 @@
         		<groupId>org.jacoco</groupId>
         		<artifactId>jacoco-maven-plugin</artifactId>
 				<version>0.8.1</version>
+				<configuration>
+					<skip>${project.reports.skip}</skip>
+				</configuration>
         		<executions>
                      <execution>
                 		<id>jacoco-pre-unit-test</id>
@@ -132,6 +139,7 @@
         		<artifactId>maven-surefire-plugin</artifactId>
         		<version>2.21.0</version>
         		<configuration>
+        			<skip>${project.reports.skip}</skip>
             		<argLine>${surefireArgLine}</argLine>
             		<reportsDirectory>${sonar.surefire.reportsPath}</reportsDirectory>
         		</configuration>
@@ -140,6 +148,9 @@
         		<groupId>org.apache.maven.plugins</groupId>
         		<artifactId>maven-failsafe-plugin</artifactId>
         		<version>2.21.0</version>
+        		<configuration>
+					<skip>${project.reports.skip}</skip>
+				</configuration>
         		<executions>
             		<execution>
                 		<id>integration-tests</id>
@@ -149,7 +160,7 @@
                 		</goals>
                 		<configuration>
                     		<argLine>${failsafeArgLine}</argLine>
-                    		<reportsDirectory>${sonar.failsafe.reportsPath}</reportsDirectory>
+                    		<summaryFile>${sonar.failsafe.reportsPath}/failsafe-summary.xml</summaryFile>
                 		</configuration>
             		</execution>
         		</executions>
@@ -159,12 +170,6 @@
     
     <dependencies>
 		<!-- TEST Dependency -->
-    	<dependency>
-		    <groupId>org.seleniumhq.selenium</groupId>
-		    <artifactId>selenium-java</artifactId>
-		    <version>3.14.0</version>
-		    <scope>test</scope>
-		</dependency>
     	<dependency>
 		    <groupId>junit</groupId>
 		    <artifactId>junit</artifactId>

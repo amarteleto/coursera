@@ -102,4 +102,18 @@ public class ConfigUtil implements Serializable {
 				}
 			}
 	}
+
+	public static String getSeleniumWebdriverType() {
+		if (!ConfigUtil.properties.isEmpty()) {
+			return ConfigUtil.properties.getProperty("selenium.webdriver.type");
+		}
+		throw new BusinessException(MENSAGEM_PADRAO);
+	}
+
+	public static String getSeleniumWebdriverVersion() {
+		if (!ConfigUtil.properties.isEmpty()) {
+			return ConfigUtil.properties.getProperty("selenium.webdriver.version");
+		}
+		throw new BusinessException(MENSAGEM_PADRAO);
+	}
 }

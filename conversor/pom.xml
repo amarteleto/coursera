@@ -15,6 +15,10 @@
     <name>conversor</name>
   	<description>conversor</description>
 	
+	<properties>
+		<project.reports.skip>false</project.reports.skip>
+	</properties>
+	
 	<build>
         <finalName>${project.artifactId}</finalName>
         <plugins>
@@ -30,6 +34,12 @@
 		</plugins>
 	</build>
 	<dependencies>
+		<dependency>
+			<groupId>${project.groupId}</groupId>
+			<artifactId>selenium</artifactId>
+			<version>${project.version}</version>
+			<scope>test</scope>
+		</dependency>
 		<dependency>
 			<groupId>javax.servlet</groupId>
 			<artifactId>javax.servlet-api</artifactId>

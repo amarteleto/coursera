@@ -9,6 +9,7 @@ import org.openqa.selenium.support.How;
 
 import br.com.marteleto.coursera.forum.util.ConfigUtil;
 import br.com.marteleto.coursera.forum.vo.Usuario;
+import br.com.marteleto.coursera.selenium.util.WebDriverUtil;
 
 public class CadastroUsuarioPage implements Serializable {
 	private static final long serialVersionUID = 1L;
@@ -39,10 +40,12 @@ public class CadastroUsuarioPage implements Serializable {
         txEmail.sendKeys(usuario.getEmail());
         txNome.sendKeys(usuario.getNome());
         btSalvar.click();
+        WebDriverUtil.waitForLoad();
 		return lbMensagem.getText();
 	}
 	
 	public void cancelar() {
 		btCancelar.click();
+		WebDriverUtil.waitForLoad();
 	}
 }

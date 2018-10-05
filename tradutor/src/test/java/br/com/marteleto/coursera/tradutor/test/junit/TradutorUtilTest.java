@@ -7,6 +7,7 @@ import org.junit.Test;
 
 import br.com.marteleto.coursera.tradudor.util.TradutorUtil;
 
+@SuppressWarnings("unused")
 public class TradutorUtilTest {
 
 	@Test
@@ -31,5 +32,10 @@ public class TradutorUtilTest {
 	public void traduzirPalavra() {
 		String traducao = TradutorUtil.traduzir("ola");
 		assertEquals("hello", traducao);
+	}
+	
+	@Test
+	public void create() {
+		TradutorUtil util = new TradutorUtil();
 	}
 }

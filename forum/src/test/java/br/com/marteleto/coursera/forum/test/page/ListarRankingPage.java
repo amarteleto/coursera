@@ -11,6 +11,7 @@ import org.openqa.selenium.support.FindBy;
 import org.openqa.selenium.support.How;
 
 import br.com.marteleto.coursera.forum.util.ConfigUtil;
+import br.com.marteleto.coursera.selenium.util.WebDriverUtil;
 
 public class ListarRankingPage implements Serializable {
 	private static final long serialVersionUID = 1L;
@@ -31,6 +32,7 @@ public class ListarRankingPage implements Serializable {
 	
 	public void acessarTopicos() {
 		btTopicos.click();
+		WebDriverUtil.waitForLoad();
 	}
 	
 	public boolean semRanking() {

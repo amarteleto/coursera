@@ -14,8 +14,16 @@
   	
     <name>dbunit</name>
   	<description>dbunit</description>
-  	
-    <dependencies>
+	
+	<properties>
+		<project.reports.skip>false</project.reports.skip>
+	</properties>
+	
+	<build>
+        <finalName>${project.artifactId}</finalName>
+	</build>
+	
+	<dependencies>
 		<dependency>
 		    <groupId>org.apache.derby</groupId>
 		    <artifactId>derby</artifactId>
@@ -23,9 +31,5 @@
 		    <scope>test</scope>
 		</dependency>
 	</dependencies>
-	
-	<build>
-        <finalName>${project.artifactId}</finalName>
-	</build>
 	
 </project>

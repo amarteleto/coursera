@@ -8,6 +8,7 @@ import org.openqa.selenium.support.FindBy;
 import org.openqa.selenium.support.How;
 
 import br.com.marteleto.coursera.forum.util.ConfigUtil;
+import br.com.marteleto.coursera.selenium.util.WebDriverUtil;
 
 public class LoginPage implements Serializable {
 	private static final long serialVersionUID = 1L;
@@ -32,10 +33,12 @@ public class LoginPage implements Serializable {
 		txLogin.sendKeys(login);
         txSenha.sendKeys(senha);
         btAutenticar.click();
+        WebDriverUtil.waitForLoad();
 		return lbMensagem.getText();
 	}
 	
 	public void novoCadastro() {
 		btNovo.click();
+		WebDriverUtil.waitForLoad();
 	}
 }

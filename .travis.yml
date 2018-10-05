@@ -1,3 +1,9 @@
+env:
+  global:
+    - CODECOV_TOKEN=$CODECOV_KEY
+    - CC_TEST_REPORTER_ID=$CODE_CLIMATE_KEY
+    - CODACY_PROJECT_TOKEN=$CODACY_KEY
+    
 notifications:
   email:
     on_failure: never
@@ -6,10 +12,42 @@ notifications:
 language: java
 
 addons:
+  firefox: latest
+  chrome: stable
   sonarcloud:
     organization: "amarteleto-github"
     token:
       secure: $SONAR_KEY
 
+before_script:
+  # Setup X to allow non-headless browsers to run
+  - export DISPLAY=:99.0
+  - /sbin/start-stop-daemon --start --quiet --pidfile /tmp/custom_xvfb_99.pid --make-pidfile --background --exec /usr/bin/Xvfb -- :99 -ac -screen 0 1400x1024x16
+
+  # Set up code climate test reporter
+  - curl -L https://codeclimate.com/downloads/test-reporter/test-reporter-latest-linux-amd64 > ./cc-test-reporter
+  - chmod +x ./cc-test-reporter
+  - ./cc-test-reporter before-build
+  
+  # Codacy report  
+  - sudo apt-get install jq
+  - wget -O ~/codacy-coverage-reporter-assembly-latest.jar $(curl https://api.github.com/repos/codacy/codacy-coverage-reporter/releases/latest | jq -r .assets[0].browser_download_url)
+
 script:
-  - mvn clean install sonar:sonar -Dmaven.test.failure.ignore=true -Dtest=AllTest
+  - mvn clean install sonar:sonar -DfailIfNoTests=false -Dmaven.test.failure.ignore=true -Dtest=AllTest
+  
+after_script:
+  # Code coverage report
+  - bash <(curl -s https://codecov.io/bash)
+  - java -jar ~/codacy-coverage-reporter-assembly-latest.jar report -l Java -r target/site/jacoco/jacoco.xml
+
+  # Upload code coverage to code climate - with workaround for jacoco
+  - mkdir -p src/main/java
+  - cp -r conversor/src/main/java/* src/main/java
+  - cp -r dbunit/src/main/java/* src/main/java
+  - cp -r forum/src/main/java/* src/main/java
+  - cp -r selenium/src/main/java/* src/main/java
+  - cp -r tradutor/src/main/java/* src/main/java
+  - cp target/site/jacoco/jacoco.xml src/main/java
+  - cd src/main/java/
+  - ../../../cc-test-reporter after-build -t jacoco -d --exit-code $TRAVIS_TEST_RESULT

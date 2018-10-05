@@ -11,12 +11,13 @@ import org.junit.runners.Suite;
 
 import br.com.marteleto.coursera.tradutor.test.junit.TradutorServletTest;
 import br.com.marteleto.coursera.tradutor.test.junit.TradutorUtilTest;
+import br.com.marteleto.coursera.tradutor.test.selenium.WebTest;
 
 @RunWith(Suite.class)
 @Suite.SuiteClasses({
 	TradutorUtilTest.class,
 	TradutorServletTest.class,
-	//WebTest.class,
+	WebTest.class,
 })
 public class AllTest implements Serializable {
 	private static final long serialVersionUID = 1L;

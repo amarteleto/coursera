@@ -8,6 +8,7 @@ import org.openqa.selenium.support.FindBy;
 import org.openqa.selenium.support.How;
 
 import br.com.marteleto.coursera.forum.util.ConfigUtil;
+import br.com.marteleto.coursera.selenium.util.WebDriverUtil;
 
 public class ConsultarTopicoPage implements Serializable {
 	private static final long serialVersionUID = 1L;
@@ -40,5 +41,6 @@ public class ConsultarTopicoPage implements Serializable {
 	public void adicionarComentario (String comentario) {
 		txComentario.sendKeys(comentario);
 		btSalvar.click();
+		WebDriverUtil.waitForLoad();
 	}
 }

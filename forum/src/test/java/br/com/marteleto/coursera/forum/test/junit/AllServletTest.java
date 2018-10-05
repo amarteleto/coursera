@@ -218,4 +218,10 @@ public class AllServletTest implements Serializable {
 		ContextListener contextListener = new ContextListener();
 		contextListener.contextDestroyed(null);
 	}
+	
+	@Test
+	public void webUtilRedirect() throws IOException, ServletException {
+		WebUtil.redirecionarPaginaTopicoCadastro(ServletMock.getHttpServletRequest(), ServletMock.getHttpServletResponse());
+		WebUtil.redirecionarServletRankingUsuario(ServletMock.getHttpServletRequest(), ServletMock.getHttpServletResponse());
+	}
 }
